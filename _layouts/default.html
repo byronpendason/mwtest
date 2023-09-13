@@ -48,20 +48,15 @@
 {% endunless %}
   </head>
   <body{% if page.brython %} onload="brython({% if page.debug %}{debug:1}{% endif %})"{% endif %}>
-    <div id="header">
-      <h1><a href="/" style="color:white;text-decoration:none;">{{ site.title }}</a></h1>
-      <p>{{ site.byline }}</p>
-    </div>
+      <div id="header">
+      <h1 class="title"><a href="/">{{ site.title }}</a></h1>
+      <p class="subtitle">{{ site.byline }}</p>
     <nav>
-      <div class="dropdown">
-        <span class="dropbtn">Menu</span>
-        <div class="dropdownContent">
           {% for item in site.header_pages %}
-          <a href="{{ item.url }}">{{ item.title }}</a><br>
+          <a href="{{ item.url }}">{{ item.title }}</a>
           {% endfor %}
-        </div>
-      </div>
     </nav>
+    </div>
     <div id="content">
       <input type="text" id="search-input" placeholder="&#x2315;">
       <ul id="results-container"></ul>

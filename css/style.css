@@ -3,61 +3,43 @@ layout: nil
 sitemap:
   exclude: 'yes'
 ---
-
 body {
-  background-image: url("/media/blue-sky-with-small-cloud.jpg");
-  background-color: CornflowerBlue;
+  min-height:100%;
+  margin: 0px;
+  padding: 0px;
+}
+#header {
+  background-image: url("/mwtest/media/hd-parchment.jpg");
   background-attachment: fixed;
   background-size: cover;
   position: center;
-  color: black;
-  min-height:100%;
+  color: #370303;
+  margin: 0px;
+  margin-top: 0px;
 }
-#header {
-  background: rgb(25, 25, 112);
-  color: white;
-  border-radius: 25px 25px 0px 0px;
-  border-color: midnightblue;
-  border-width: 10px;
-  border-style: solid;
-}
-#header * {
+.title a {
+  color:#370303;
   text-align: center;
 }
 nav {
-  background: rgb(25, 25, 112);
-  color: white;
-  padding: 25px;
+  color: #370303;
+  text-align: center;
 }
 nav * {
   text-align: center;
+  font-family: sans-serif;
 }
 nav a {
-  color: white;
+  background-color: #370303;
+  color:white;
+  text-decoration: none;
+  margin: 5px;
+  padding:3px;
+  border-radius: 10px;
+  display: inline-block;
+}
+nav a:hover {
   text-decoration: underline solid 1px;
-  margin-top: 0.25em;
-  margin-bottom: 0.25em;
-}
-.dropdown {
-  position: relative;
-  display: block;
-  background: rgb(25, 25, 112);
-}
-.dropbtn {
-  display: block;
-  font-size: 1.25em;
-  text-decoration: underline overline double 1px;
-}
-.dropdownContent {
-  display: none;
-  position: absolute;
-  background: rgb(25, 25, 112);
-  width: 100%;
-  box-sizing: border-box;
-  clear:both;
-}
-.dropdown:hover .dropdownContent {
-  display: block;
 }
 #search-input {
   float: right;
@@ -66,12 +48,6 @@ nav a {
   margin: 1px;
 }
 #content {
-  background: rgba(255, 255, 255, 0.5);
-  color: black;
-  border-radius: 0px 0px 25px 25px;
-  border-color: midnightblue;
-  border-width: 10px;
-  border-style: solid;
   padding: 10px;
   min-height: 85%;
 }
@@ -94,7 +70,6 @@ dt {
 .PageNavigation .next {
   text-align: right;
 }
-
 h6 {
   margin-top: 0;
   padding-top: 0;
@@ -103,41 +78,55 @@ ul#results-container {
   padding: 0;
   list-style-type: none;
 }
-
 #results-container li {
   margin-bottom: 1.5rem;
 }
-
 span.post-meta {
   font-size: 1rem;
 }
-
 table {
-  margin-left: auto;
-  margin-right: auto;
-}
-
-table, the, td {
-  border: 1px solid;
-}
-
-td {
+  border-width: 1px;
+  width: 100%;
+  border-collapse: collapse;
+  border: 2px solid black;
   text-align: center;
 }
-
-th {
-  background-color: midnightblue;
-  color: white;
+tr:nth-child(even) {
+  background-color: #C8B5A2;
 }
-
+tr:nth-child(odd) {
+  background-color: #F6EDDC;
+}
+tr:hover {
+  background-color: lightskyblue;
+  cursor:default;
+}
+th {
+  background-color: #370303;
+  color: whitesmoke;
+  padding: 10px;
+  font-family: sans-serif;
+}
+td {
+  padding: 10px;
+}
 a.disabled {
   color: #999;
 }
-
 a.disabled.chosen {
   color: #000;
 }
-
 a.disabled:hover {
   cursor: not-allowed;
+}
+.title {
+  font-family: 'Almendra SC', serif;
+  font-size: 4em;
+  margin-bottom: 0px;
+  text-align: center;
+}
+.subtitle {
+  font-size:2em;
+  margin-top: 0px;
+  text-align: center;
 }
