@@ -3,21 +3,17 @@ layout: nil
 sitemap:
   exclude: 'yes'
 ---
-/* this is a comment to test whether I can commit */
 
 body {
   min-height:100%;
   margin: 0px;
   padding: 0px;
-}
-#header {
   background-image: url("/mwtest/media/hd-parchment.jpg");
   background-attachment: fixed;
   background-size: cover;
-  position: center;
+}
+#header {
   color: #370303;
-  position:absolute;
-  top: 0;
 }
 .title a {
   color:#370303;
@@ -50,8 +46,10 @@ nav a:hover {
   margin: 1px;
 }
 #content {
-  padding: 10px;
+  padding: 2%px;
   min-height: 85%;
+  background-color: #F6EDDC;
+  color:#370303;
 }
 dt {
   font-weight: bold;
