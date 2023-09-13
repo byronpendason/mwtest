@@ -1,0 +1,106 @@
+<div id="debug"></div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/suncalc/1.9.0/suncalc.js"></script>
+<script>
+// City information to use for calculations
+// Edit this for your calculations
+city_name = "Tamworth";
+latitude = 52.6336;
+longitude = -1.6910;
+
+Date.prototype.toJD = function(){
+  return (this / 86400000) - (this.getTimezoneOffset()/1440) + 2440587.5;
+}
+Number.prototype.toDate = function(){
+  date = new Date((this - 2440587.5) * 86400000);
+  return new Date(date.setMinutes(date.getMinutes()+date.getTimezoneOffset()));
+}
+class ASCal {
+  constructor(year, latitude, longitude) {
+    this.name = name;
+    this.lat = latitude;
+    this.long = longitude;
+    this.year = year;
+    var date = new Date();
+    date.setFullYear(this.year);
+    this.winterSolstice = this.getWinterSolstice(date.getFullYear());
+    this.summerSolstice = this.getSummerSolstice(date.getFullYear());
+  }
+  getSummerSolstice(year) {
+    var R = 180/Math.PI;
+    if (year > 1000 && year < 3000) {
+      var Y = (year - 2000) / 1000;
+      var JDE0 = 2451716.56767 + 365241.62603*Y - 0.00325*Y*Y - 0.00888*Y*Y*Y + 0.00030*Y*Y*Y*Y;
+    } else {
+      return "ERROR: Year is out of range";
+    }
+    var A = [485, 203, 199, 182, 156, 136, 77, 74, 70, 58, 52, 50, 45, 44, 29, 18, 17, 16, 14, 12, 12, 12, 9, 8];
+    var B = [324.96, 337.23, 342.08, 27.85, 73.14, 171.52, 222.54, 296.72, 243.58, 119.81, 297.17, 21.02, 247.54, 325.15, 60.93, 155.12, 288.79, 198.04, 199.76, 95.39, 287.11, 320.81, 227.73, 15.45];
+    var C = [1934.136, 32964.467, 20.186, 445267.112, 45036.886, 22518.443, 65928.934, 3034.906, 9037.513, 33718.147, 150.678, 2281.226, 29929.562, 31555.956, 4443.417, 67555.328, 4562.452, 62894.029, 31436.921, 14577.848, 31931.756, 34777.259, 1222.114, 16859.074];
+    var T = (JDE0 - 2451545.0)/36525;
+    var W = 35999.373*T - 2.47;
+    var dL = 1 + 0.0334*Math.cos(W * 180/Math.PI) + 0.0007*Math.cos(2*W*R);
+    var S = 0;
+    for (var i=0; i< 24; i++) {
+      S += A[i]*Math.cos(B[i]+C[i]*T);
+    }
+    var JDE = JDE0 + (0.00001*S)/dL;
+    return JDE.toDate();
+  }
+  getWinterSolstice(year) {
+    var R = 180/Math.PI;
+    var Y = (year - 2000) / 1000;
+    var JDE0 = 2451900.05952 + 365242.74049*Y - 0.06223*Y*Y - 0.00823*Y*Y*Y + 0.00031*Y*Y*Y*Y;
+    var A = [485, 203, 199, 182, 156, 136, 77, 74, 70, 58, 52, 50, 45, 44, 29, 18, 17, 16, 14, 12, 12, 12, 9, 8];
+    var B = [324.96, 337.23, 342.08, 27.85, 73.14, 171.52, 222.54, 296.72, 243.58, 119.81, 297.17, 21.02, 247.54, 325.15, 60.93, 155.12, 288.79, 198.04, 199.76, 95.39, 287.11, 320.81, 227.73, 15.45];
+    var C = [1934.136, 32964.467, 20.186, 445267.112, 45036.886, 22518.443, 65928.934, 3034.906, 9037.513, 33718.147, 150.678, 2281.226, 29929.562, 31555.956, 4443.417, 67555.328, 4562.452, 62894.029, 31436.921, 14577.848, 31931.756, 34777.259, 1222.114, 16859.074];
+    var T = (JDE0 - 2451545.0)/36525;
+    var W = 35999.373*T - 2.47;
+    var dL = 1 + 0.0334*Math.cos(W * R) + 0.0007*Math.cos(2*W*R);
+    var S = 0;
+    for (var i=0; i< 24; i++) {
+      S += A[i]*Math.cos(B[i]+C[i]*T*R);
+    }
+    var JDE = JDE0 + (0.00001*S)/dL;
+    return JDE.toDate();
+  }
+  nextNewMoon(date) {
+    var R = 180/Math.PI;
+    var Y = (date.toJD()-38.5)/365.242 - 4712;
+    var K = Math.floor((Y-2000)*12.3685)+1;
+    var T = K/1236.85;
+    var JDE = 2451550.09766 + 29.530588861*K + 0.00015437*T*T - 0.000000150*T*T*T + 0.00000000073*T*T*T*T;
+    var t = (JDE - 2451545)/36525;
+    var E = 1 - 0.002516*t - 0.0000074*t*t;
+    var M = 2.55334 + 29.10535670*K - 0.0000014*T*T - 0.00000011*T*T*T;
+    var m = 201.5643 + 385.81693528*K + 0.0107582*T*T + 0.00001238*T*T*T - 0.000000058*T*T*T*T;
+    var F = 160.7108 + 390.67050284*K - 0.0016118*T*T - 0.00000227*T*T*T + 0.000000058*T*T*T*T;
+    JDE = JDE - 0.40720*Math.sin(m*R) + 0.17241*E*Math.sin(M*R) + 0.01608*Math.sin(2*m*R) + 0.01039*Math.sin(2*F*R)+0.00739*E*Math.sin((m-M)*R) - 0.00514*E*Math.sin((m+M)*R) + 0.0208*E*E*Math.sin(2*M*R) - 0.00111*Math.sin((m-2*F)*R) - 0.00057*Math.sin((m+2*F)*R) + 0.00056*E*Math.sin((2*m+M)*R) - 0.00042*Math.sin(3*m*R) + 0.00042*E*Math.sin((M+2*F)*R) + 0.00038*E*Math.sin((M-2*F)*R) - 0.00024*E*Math.sin((2*m-M)*R);
+    date = JDE.toDate();
+    var times = SunCalc.getTimes(date, this.lat, this.long);
+    var illum = SunCalc.getMoonIllumination(times.sunset);
+    
+    while (illum.fraction < 0.01) {
+      times = SunCalc.getTimes(date, this.latitude, this.longitude);
+      illum = SunCalc.getMoonIllumination(times.sunset);
+    }
+    return times.sunset;
+  }
+  nextFullMoon(date) {
+    var R = 180/Math.PI;
+    var Y = (date.toJD()-38.5)/365.242 - 4712;
+    var K = Math.floor((Y-2000)*12.3685)+1.5;
+    var T = K/1236.85;
+    var JDE = 2451550.09766 + 29.530588861*K + 0.00015437*T*T - 0.000000150*T*T*T + 0.00000000073*T*T*T*T;
+    var t = (JDE - 2451545)/36525;
+    var E = 1 - 0.002516*t - 0.0000074*t*t;
+    var M = 2.55334 + 29.10535670*K - 0.0000014*T*T - 0.00000011*T*T*T;
+    var m = 201.5643 + 385.81693528*K + 0.0107582*T*T + 0.00001238*T*T*T - 0.000000058*T*T*T*T;
+    var F = 160.7108 + 390.67050284*K - 0.0016118*T*T - 0.00000227*T*T*T + 0.000000058*T*T*T*T;
+    JDE = JDE - 0.40720*Math.sin(m*R) + 0.17302*E*Math.sin(M*R) + 0.01614*Math.sin(2*m*R) + 0.01043*Math.sin(2*F*R)+0.00739*E*Math.sin((m-M)*R) - 0.00515*E*Math.sin((m+M)*R) + 0.00209*E*E*Math.sin(2*M*R) - 0.00111*Math.sin((m-2*F)*R) - 0.00057*Math.sin((m+2*F)*R) + 0.00056*E*Math.sin((2*m+M)*R) - 0.00042*Math.sin(3*m*R) + 0.00042*E*Math.sin((M+2*F)*R) + 0.00038*E*Math.sin((M-2*F)*R) - 0.00024*E*Math.sin((2*m-M)*R);
+    return JDE.toDate();
+  }
+}
+
+cal = new ASCal(2022, latitude, longitude);
+document.getElementById("debug").innerHTML = cal.nextNewMoon(new Date());
+</script>

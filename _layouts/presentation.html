@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+
+<html>
+
+  <head>
+
+    <title>{{page.title}}</title>
+    <meta charset="utf-8">
+    <link rel="icon" type="image/jpg" href="/media/kent_style_hammer_inverse.jpg"> 
+  
+     <!-- HTML Meta Tags --> 
+     <title>{% unless page.title == "Home" %} {{ page.title }} | {% endunless %} Mine Wyrtruman{% if page.layout == "wiki" %} Wiki{% endif %}</title> 
+     <meta name="description" content="{% if page.excerpt %}{{ page.excerpt | strip_html | strip_newlines | truncatewords: 25}}{% else %}{{ site.description }}{% endif %}"> 
+  
+     <!-- Google / Search Engine Tags --> 
+     <meta itemprop="name" content="{% unless page.title == "Home" %} {{ page.title }} | {% endunless %} Mine Wyrtruman{% if page.layout == "wiki" %} Wiki{% endif %}"> 
+     <meta itemprop="description" content="{% if page.excerpt %}{{ page.excerpt | strip_html | strip_newlines | truncatewords: 25}}{% else %}{{ site.description }}{% endif %}"> 
+     <meta itemprop="image" content="https://byronpendason.github.io/media/kent_style_hammer_inverse.jpg"> 
+  
+     <!-- Facebook Meta Tags --> 
+     <meta property="og:url" content="https://byronpendason.github.io{{ page.url }}"> 
+     <meta property="og:type" content="website"> 
+     <meta property="og:title" content="{% unless page.title == "Home" %}{{ page.title }} | {% endunless %}Mine Wyrtruman{% if page.layout == "wiki" %} Wiki{% endif %}"> 
+     <meta property="og:description" content="{% if page.excerpt %}{{ page.excerpt | strip_html | strip_newlines | truncatewords: 25}}{% else %}{{ site.description }}{% endif %}"> 
+     <meta property="og:image" content="https://byronpendason.github.io/media/kent_style_hammer_inverse.jpg"> 
+  
+     <!-- Twitter Meta Tags --> 
+     <meta name="twitter:card" content="summary"> 
+     <meta name="twitter:title" content="{% unless page.title == "Home" %}{{ page.title }} | {% endunless %}Mine Wyrtruman{% if page.layout == "wiki" %} Wiki{% endif %}"> 
+     <meta name="twitter:description" content="{% if page.excerpt %}{{ page.excerpt | strip_html | strip_newlines | truncatewords: 25}}{% else %}{{ site.description }}{% endif %}"> 
+     <meta name="twitter:image" content="https://byronpendason.github.io/media/penda.jpg"> 
+  
+     <!-- Meta Tags Generated via http://heymeta.com --> 
+     <script type="text/javascript" src="/js/jquery-3.6.1.min.js"></script> 
+  
+ {% if page.brython %}<script src="/js/brython.js"> 
+ </script> 
+ <script src="/js/brython_stdlib.js"> 
+ </script>{% endif %} 
+  
+ {% unless notrack%} 
+ {% include analytics.html %} 
+ {% endunless %}
+    <style>
+
+      @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+
+      @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
+
+      @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+
+      body { 
+        font-family: 'Droid Serif';
+        font-size: 14px;
+      }
+
+      h1, h2, h3 {
+
+        font-family: 'Yanone Kaffeesatz';
+        font-weight: normal;
+        color: orange;
+        padding: 0px;
+        margin: 0px;
+        font-variant-caps: small-caps;
+        text-align: center;
+      }
+      
+  
+      a {
+        color: yellow;
+        text-decoration: underline;
+      }
+      
+      a:visited {
+        color: gold;
+      }
+      
+      blockquote {
+        background: #222222;
+        border-left: 10px solid #444444;
+        margin: 1.5em 10px;
+        padding: 0.6em;
+     }
+  
+      img {
+        width: 100%;
+        height: auto;
+        margin-top: 1.5em;
+      }
+      
+      li {
+        width: 100%;
+      }
+
+      ul {
+        list-style-position: inside;
+        width: 100%;
+      }
+
+      p {
+        
+        text-align: justify;
+        text-justify: inter-word;
+      }
+      
+      .column1 {
+        float: left;
+        max-width: 65%;
+        text-align: justify;
+        text-justify: inter-word;
+      }
+      
+      .column2 {
+        float: right;
+        max-width: 32%;
+        font-size: 0.85em;
+      }
+
+      .column2 > p {
+        text-align: center;
+        margin: 0px;
+        padding: 0.5px;
+      }
+     
+      .remark-slide-content {
+        background-color: black;
+        color: white;
+        margin: 0px;
+        padding: 1em:
+      }
+      
+      .remark-code, .remark-inline-code {
+        font-family: 'Ubuntu Mono'; 
+      }
+
+    </style>
+
+  </head>
+
+  <body>
+
+    <textarea id="source">
+
+{{content}}
+
+    </textarea>
+
+    <script src="https://remarkjs.com/downloads/remark-latest.min.js">
+
+    </script>
+
+    <script>
+
+      var slideshow = remark.create();
+
+    </script>
+
+  </body>
+
+</html>

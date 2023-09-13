@@ -1,0 +1,269 @@
+---
+title: Learn the Futhorc Runes!
+author: Byron Pendason
+permalink: /learn_futhorc/
+layout: default
+runes: true
+sitemap:
+  exclude: true
+---
+
+<h1 style="margin: 0px; text-align: center;">Learn the Futhorc!</h1>
+<table style="width: 100%;">
+	<tr>
+		<th>Correct</th>
+		<th>Incorrect</th>
+		<th>Questions left</th>
+	</tr>
+	<tr>
+		<td id="correct" style="text-align: center;">0</td>
+		<td id="incorrect" style="text-align: center;">0</td>
+		<td id="questionsLeft" style="text-align: center;">0</td>
+	</tr>
+</table>
+<select name="level" id="level" style="text-align: center; width: 100%; font-size: 1.25em; height: 1.33em;" onchange=changeLevel()>
+	<option value=1>Level 1</option>
+	<option value=2>Level 2</option>
+	<option value=3>Level 3</option>
+	<option value=4>Level 4</option>
+	<option value=5>Level 5</option>
+	<option value=6>Level 6</option>
+	<option value=7>All Runes Plus Punctuation</option>
+	<option value=8>Common Words</option>
+</select>
+
+<h2 id="rune" style="text-align: center;font-weight: normal;font-size: 3em; margin: 0px"></h2>
+
+<form id="choices">
+</form>
+<form>
+	<button type="button" id="toggleBtn" onclick=toggleLevels()>Show Levels and Notes</button>
+	<input type="checkbox" id="fontcb" name="fontcb" value="Use normal font" onchange=changeFont()>
+	<label for="fontcb">Use modern font</label>
+</form>
+<div id="levels" style="display: none;">
+	<h2>Levels</h2>
+	<ol id="lvlList">
+		<li>ᚦ=th &nbsp; ᛝ=ng &nbsp; ᛥ=st &nbsp; ᚫ=ae &nbsp; ᛠ=ea &nbsp; ᛟ=ee &nbsp; ᛇ=eo &nbsp; ᛡ=io</li>
+		<li>ᛖ=e &nbsp; ᛏ=t &nbsp; ᚪ=a &nbsp; ᛁ=i &nbsp; ᚩ=o </li>
+		<li>ᚾ=n &nbsp; ᛋ=s &nbsp; ᚻ=h &nbsp; ᚱ=r &nbsp; ᛞ=d </li>
+		<li>ᛚ=l &nbsp; ᚳ=c &nbsp; ᚢ=u,v &nbsp; ᛗ=m &nbsp; ᚹ=w </li>
+		<li>ᚠ=f &nbsp; ᚷ=g &nbsp; ᚣ=y &nbsp; ᛈ=p &nbsp; ᛒ=b </li>
+		<li>ᛣ=k &nbsp; ᛄ=j &nbsp; ᛉ=x &nbsp; ᛢ=q &nbsp; ᚴ=z </li>
+		<li>᛫=space &nbsp; ᛭=comma &nbsp; ᛬=end sentence (period, question mark, exclamation mark, etc)</li>
+		<li>Twenty common words (from a list of English's 100 most common words; it will be different each time)</li>
+	</ol>
+	<h3>Notes</h3>
+	<ul>
+		<li>This webapp teaches my system for writing in Anglo-Saxon runes, which relies upon using modern spelling rather than being phonetic.</li>
+		<li>When starting a new level, I recommend using the above chart for the first few rounds. Do not move on to the next level though until you can get 100% on the current level without guessing or checking the above chart.</li>
+		<li>If you want to learn to write in the runes phonetically, learn first how to write modern English using <a href="https://en.m.wikipedia.org/wiki/Old_English_phonology">Old English phonology</a>. Then use the above system for writing the runes using Old English spelling.</li>
+		<li>By default, this webapp uses the Junicode font. This font makes runes look more historically accurate, and easier to copy by hand. If you prefer, you can use a font that makes the runes look more like what you're likely to find on electronic devices (many of the runes will be more rounded) by checking the ckeckbox above.</li>
+	</ul>
+</div>
+
+<script>
+Array.prototype.random = function() {
+  return this[Math.floor((Math.random() * this.length))];
+}
+
+function toggleLevels() {
+  let btn = document.getElementById("toggleBtn");
+  let div = document.getElementById("levels");
+  if (btn.textContent == "Show Levels and Notes") {
+    btn.textContent = "Hide Levels and Notes";
+    div.style.display = "block";
+  } else {
+    btn.textContent = "Show Levels and Notes";
+    div.style.display = "none";
+  }
+}
+
+function changeFont() {
+  if (document.getElementById("fontcb").checked) {
+    document.getElementById("content").style.fontFamily = "Arial,serif";
+  } else {
+    document.getElementById("content").style.fontFamily = "Junicode,serif";
+  }
+}
+
+function checkAnswer(btnId) {
+  let btn = document.getElementById(btnId);
+  index = runes.indexOf(rune);
+  if (btn.textContent == letters[index]) {
+    correct++;
+    runes.splice(index, 1);
+    letters.splice(index, 1);
+    btn.style.backgroundColor = "#00ff00";
+  } else {
+    incorrect++;
+    btn.style.backgroundColor = "#ff0000";
+    let wrong = runes[index] + " = " + letters[index];
+    if (wrongRunes.includes(wrong) == false) {
+      wrongRunes.push(wrong);
+    } else {
+      runes.splice(index, 1);
+      letters.splice(index, 1);
+    }
+  }
+
+  if (runes.length == 0) {
+    let score = Math.floor(correct / (correct + incorrect) * 100);
+    updateTable();
+    correct = 0;
+    incorrect = 0;
+    let form = document.getElementById("choices");
+    while (form.firstChild) {
+      form.removeChild(form.lastChild);
+    }
+
+    if (wrongRunes.length > 0) {
+
+      let header = document.createElement("h3");
+      header.textContent = "Incorrect answers:";
+      document.getElementById("choices").appendChild(header);
+      let text = document.createElement("p");
+      text.innerHTML = wrongRunes.join("<br>");
+      document.getElementById("choices").appendChild(text);
+    }
+    wrongRunes = [];
+    level = document.getElementById("level").value;
+    runes = [];
+    letters = [];
+    if (level < 8) {
+      if (level == 7) {
+        length = runes.length;
+      } else {
+        length = 8 + (level - 1) * 5;
+      }
+      runes = all_runes.slice(0, length);
+      letters = all_letters.slice(0, length);
+    } else {
+      runes = getRandomSubarray(rune_words, length);
+      for (let i = 0; i < runes.length; i++) {
+        index = rune_words.indexOf(runes[i]);
+        letters.push(english_words[index]);
+      }
+    }
+    let btn = document.createElement('button');
+    btn.textContent = "Play again!";
+    btn.style.width = "100%";
+    btn.style.fontSize = "1.25em";
+    btn.style.height = "1.33em";
+    btn.type = "button";
+    btn.onclick = function() {
+      createForm();
+    }
+
+    document.getElementById("choices").appendChild(btn);
+    document.getElementById("rune").textContent = "Score: " + score.toString() + "%";
+  } else {
+    setTimeout(createForm, 750);
+  }
+}
+
+function createForm() {
+  let form = document.getElementById("choices");
+  while (form.firstChild) {
+    form.removeChild(form.lastChild);
+  }
+  rune = runes.random();
+  level = document.getElementById("level").value;
+  var answers = [];
+  
+  if (letters.length > 3) {
+    answers = getRandomSubarray(letters, 4);
+  } else if (level == 8) {
+    answers = getRandomSubarray(english_words, 4);
+  } else {
+    answers = getRandomSubarray(all_letters, 4);
+  }
+
+  var index = runes.indexOf(rune);
+  if (answers.includes(letters[index]) == false) {
+    var x = Math.floor(Math.random() * 4);
+    answers[x] = letters[index];
+  }
+
+  for (let i = 0; i < answers.length; i++) {
+    let btn = document.createElement('button');
+    btn.id = "btn" + i.toString();
+    btn.textContent = answers[i];
+    btn.type = "button";
+    btn.style.width = "100%";
+    btn.style.height = "1.66em";
+    btn.style.margin = "2px 0px";
+    btn.style.fontSize = "1.5em";
+    btn.onclick = function(event) {
+      checkAnswer(event.target.id);
+    };
+    document.getElementById("choices").appendChild(btn);
+  }
+  document.getElementById("rune").textContent = rune;
+  updateTable();
+}
+
+function getRandomSubarray(arr, size) {
+  var shuffled = arr.slice();
+  var i = arr.length;
+  var temp, index;
+  while (i--) {
+    index = Math.floor((i + 1) * Math.random());
+    temp = shuffled[index];
+    shuffled[index] = shuffled[i];
+    shuffled[i] = temp;
+  }
+  return shuffled.slice(0, size);
+}
+
+function changeLevel() {
+  level = document.getElementById("level").value;
+  if (level < 7) {
+    length = 8 + (level - 1) * 5;
+    runes = [];
+    runes = all_runes.slice(0, length);
+    letters = [];
+    letters = all_letters.slice(0, length);
+  } else if (level == 7) {
+    runes = [];
+    length = all_runes.length;
+    letters = [];
+    runes = all_runes;
+    letters = all_letters;
+  } else {
+    runes = [];
+    letters = [];
+    length = 20;
+    runes = getRandomSubarray(rune_words, length);
+    for (let i = 0; i < runes.length; i++) {
+      index = rune_words.indexOf(runes[i]);
+      letters.push(english_words[index]);
+    }
+  }
+  correct = 0;
+  incorrect = 0;
+  createForm();
+}
+
+function updateTable() {
+  document.getElementById("correct").textContent = correct;
+  document.getElementById("incorrect").textContent = incorrect;
+  document.getElementById("questionsLeft").textContent = runes.length;
+}
+
+var correct = 0;
+var incorrect = 0;
+var length = 8;
+var level = 1;
+var wrongRunes = [];
+const all_letters = "TH NG ST AE EA EE EO IO E T A I O N S H R D L C U,V M W F G Y P B K J X Q Z space end_sentence comma".split(" ");
+const all_runes = "ᚦ ᛝ ᛥ ᚫ ᛠ ᛟ ᛇ ᛡ ᛖ ᛏ ᚪ ᛁ ᚩ ᚾ ᛋ ᚻ ᚱ ᛞ ᛚ ᚳ ᚢ ᛗ ᚹ ᚠ ᚷ ᚣ ᛈ ᛒ ᛣ ᛄ ᛉ ᛢ ᚴ ᛫ ᛬ ᛭".split(" ");
+const english_words = "the be to of and in that have it for not on with he as you do at this but his by from they we say her she or an will my one all would there their what so up out if about who get which go me when make can like time no just him know take people into year your good some could them see other then than now look only come its overthink also back after use two how our work first well way even new want because any these give day most us".split(" ");
+const rune_words = "ᚦᛖ ᛒᛖ ᛏᚩ ᚩᚠ ᚪᚾᛞ ᛁᚾ ᚦᚪᛏ ᚻᚪᚢᛖ ᛁᛏ ᚠᚩᚱ ᚾᚩᛏ ᚩᚾ ᚹᛁᚦ ᚻᛖ ᚪᛋ ᚣᚩᚢ ᛞᚩ ᚪᛏ ᚦᛁᛋ ᛒᚢᛏ ᚻᛁᛋ ᛒᚣ ᚠᚱᚩᛗ ᚦᛖᚣ ᚹᛖ ᛋᚪᚣ ᚻᛖᚱ ᛋᚻᛖ ᚩᚱ ᚪᚾ ᚹᛁᛚᛚ ᛗᚣ ᚩᚾᛖ ᚪᛚᛚ ᚹᚩᚢᛚᛞ ᚦᛖᚱᛖ ᚦᛖᛁᚱ ᚹᚻᚪᛏ ᛋᚩ ᚢᛈ ᚩᚢᛏ ᛁᚠ ᚪᛒᚩᚢᛏ ᚹᚻᚩ ᚷᛖᛏ ᚹᚻᛁᚳᚻ ᚷᚩ ᛗᛖ ᚹᚻᛖᚾ ᛗᚪᛣᛖ ᚳᚪᚾ ᛚᛁᛣᛖ ᛏᛁᛗᛖ ᚾᚩ ᛄᚢᛥ ᚻᛁᛗ ᛣᚾᚩᚹ ᛏᚪᛣᛖ ᛈᛇᛈᛚᛖ ᛁᚾᛏᚩ ᚣᛠᚱ ᚣᚩᚢᚱ ᚷᚩᚩᛞ ᛋᚩᛗᛖ ᚳᚩᚢᛚᛞ ᚦᛖᛗ ᛋᛟ ᚩᚦᛖᚱ ᚦᛖᚾ ᚦᚪᚾ ᚾᚩᚹ ᛚᚩᚩᛣ ᚩᚾᛚᚣ ᚳᚩᛗᛖ ᛁᛏᛋ ᚩᚢᛖᚱᚦᛁᚾᛣ ᚪᛚᛋᚩ ᛒᚪᚳᛣ ᚪᚠᛏᛖᚱ ᚢᛋᛖ ᛏᚹᚩ ᚻᚩᚹ ᚩᚢᚱ ᚹᚩᚱᛣ ᚠᛁᚱᛥ ᚹᛖᛚᛚ ᚹᚪᚣ ᛖᚢᛖᚾ ᚾᛖᚹ ᚹᚪᚾᛏ ᛒᛖᚳᚪᚢᛋᛖ ᚪᚾᚣ ᚦᛖᛋᛖ ᚷᛁᚢᛖ ᛞᚪᚣ ᛗᚩᛥ ᚢᛋ".split(" ");
+var runes = all_runes.slice(0, length);
+var letters = all_letters.slice(0, length);
+
+var rune;
+
+createForm();
+</script>

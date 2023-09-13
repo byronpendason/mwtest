@@ -1,0 +1,143 @@
+---
+layout: nil
+sitemap:
+  exclude: 'yes'
+---
+
+body {
+  background-image: url("/media/blue-sky-with-small-cloud.jpg");
+  background-color: CornflowerBlue;
+  background-attachment: fixed;
+  background-size: cover;
+  position: center;
+  color: black;
+  min-height:100%;
+}
+#header {
+  background: rgb(25, 25, 112);
+  color: white;
+  border-radius: 25px 25px 0px 0px;
+  border-color: midnightblue;
+  border-width: 10px;
+  border-style: solid;
+}
+#header * {
+  text-align: center;
+}
+nav {
+  background: rgb(25, 25, 112);
+  color: white;
+  padding: 25px;
+}
+nav * {
+  text-align: center;
+}
+nav a {
+  color: white;
+  text-decoration: underline solid 1px;
+  margin-top: 0.25em;
+  margin-bottom: 0.25em;
+}
+.dropdown {
+  position: relative;
+  display: block;
+  background: rgb(25, 25, 112);
+}
+.dropbtn {
+  display: block;
+  font-size: 1.25em;
+  text-decoration: underline overline double 1px;
+}
+.dropdownContent {
+  display: none;
+  position: absolute;
+  background: rgb(25, 25, 112);
+  width: 100%;
+  box-sizing: border-box;
+  clear:both;
+}
+.dropdown:hover .dropdownContent {
+  display: block;
+}
+#search-input {
+  float: right;
+  max-width: 33%;
+  text-align: left;
+  margin: 1px;
+}
+#content {
+  background: rgba(255, 255, 255, 0.5);
+  color: black;
+  border-radius: 0px 0px 25px 25px;
+  border-color: midnightblue;
+  border-width: 10px;
+  border-style: solid;
+  padding: 10px;
+  min-height: 85%;
+}
+dt {
+  font-weight: bold;
+}
+.PageNavigation {
+  display: block;
+  width: auto;
+  overflow: hidden;
+}
+.PageNavigation a {
+  display: block;
+  width: 50%;
+  float: left;
+  margin: 1em 0;
+  font-size: 16px;
+  color: white;
+}
+.PageNavigation .next {
+  text-align: right;
+}
+
+h6 {
+  margin-top: 0;
+  padding-top: 0;
+}
+ul#results-container {
+  padding: 0;
+  list-style-type: none;
+}
+
+#results-container li {
+  margin-bottom: 1.5rem;
+}
+
+span.post-meta {
+  font-size: 1rem;
+}
+
+table {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+table, the, td {
+  border: 1px solid;
+}
+
+td {
+  text-align: center;
+}
+
+th {
+  background-color: midnightblue;
+  color: white;
+}
+
+a.disabled {
+  color: #999;
+}
+
+a.disabled.chosen {
+  color: #000;
+}
+
+a.disabled:hover {
+  cursor: not-allowed;
+}

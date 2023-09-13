@@ -1,0 +1,423 @@
+<h2 id="monthHead"></h2>
+<table id="calDisp" style="width: 100%"></table>
+
+<div id="calendar">
+  <h2 id="current-calendar"></h2>
+  <h5 id="leap"></h5>
+   <form style="width:100%">
+    <label>Enter year:</label>
+    <input type="text" id="yrInput" style="width:5em" placeholder="CE only">
+    <button type="button" id="submit" value="Get Calendar">Get Calendar</button>
+  </form>
+  <h3>Months</h3>
+
+  <table id="months-table" style="width:100%">
+    <tr>
+      <th>Month</th>
+      <th>Starts</th>
+      <th>Full Moon</th>
+    </tr>
+  </table>
+  <h3>High Holidays</h3>
+  <p>These are the holidays that almost every Heathen observes (though usually by a different name and possibly at other times).</p>
+  <table id="holidays-table" style="width:100%">
+    <tr>
+      <th>Holiday</th>
+      <th>Date</th>
+      <th>Anglo-Saxon Date</th>
+    </tr>
+  </table>
+  <h3>Other Holidays</h3>
+  <p>These holidays are far from universal, but are observed by at least some Heathens who use the pre-Christian Anglo-Saxons as a primary source for their spirituality. Most of these are taken from the Ingvaeonic Society's <a href="https://ingwine.org/knowledge-base-2/the-holy-calendar/">The Holy Calendar</a>, unless another source is listed in parenthesis.</p>
+  <table id="other-holidays-table" style="width:100%">
+    <tr>
+      <th>Holiday</th>
+      <th>Date</th>
+      <th>Anglo-Saxon Date</th>
+    </tr>
+  </table>
+  <p id="today"></p>
+  <h3>Date Converter</h3>
+  <p>Enter a date below, and it will be converted to the Anglo-Saxon date. If the date is outside the currently selected year, this page will refresh with the calendar for that year.</p>
+  <form>
+      <label for="chosendate">Choose a date:</label>
+      <input type="date" id="chosendate" name="chosendate">
+  </form>
+  <p id="conv"></p>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<script src="/js/Astro.js" type="text/javascript"></script>
+<script type="text/JavaScript">
+
+    var body = "";
+    var newMoons = new Array();
+    var fullMoons = new Array();
+    var monthNames = new Array("Æfterra Ġēola", "Solmōnaþ", "Hreðmōnaþ", "Ēosturmōnaþ", "Þrimilcemōnaþ", "Ærra Liða", "Þriliða", "Æfterra Liða", "Weodmōnaþ", "Hāliġmōnaþ", "Wintermōnaþ", "Blōtmōnaþ", "Ærra Ġēola");
+    var convert = new Date(1582, 9, 15);
+    var today = new Date();
+    var calMonth = today.getMonth();
+    var yule = new Date();
+    var year = today.getFullYear();
+    var years = new Array();
+{% for yr in site.data.calendar %}
+    var y{{ yr.year }} = {year: {{ yr.year }}, midsummer: "{{ yr.midsummer }}", yule: "{{ yr.yule }}", new_moons: ["{% for nm in yr.new_moons %}{{ nm }}", "{% endfor %}"], full_moons: ["{% for fm in yr.full_moons %}{{ fm }}", "{% endfor %}"], leap: {{ yr.leap }}};
+    y{{ yr.year }}.new_moons.pop();
+    y{{ yr.year }}.full_moons.pop();
+    years.push(y{{ yr.year }});
+{% endfor %}
+  var days = new Array(366);
+   
+    $(document).ready(function() {
+        $("#chosendate").on('change', function() {
+            var d = new Date($("#chosendate").val());
+            var today = new Date();
+            d.setTime(d.getTime()+24*1000*60*60);
+            if (d.getFullYear() != year) {
+                clear();
+                year = d.getFullYear();
+                makeCal(year);
+            }
+            txt = d.toDateString()+" is the "+getASDate(d);1
+            $("#conv").html(txt);
+            return false;
+            //alert(txt);
+        });
+      body = $('body').html();
+      var d = new Date();
+      var yr = d.getFullYear();
+      makeCal(yr);
+    });
+    
+    function clear() {
+      //$("body").html(body);
+      $("#months-table").html("<tr> \n\
+<th>Month</th> \n\
+<th>Starts</th> \n\
+<th>Full Moon</th>\n\
+</tr>\n");
+      
+      $("#holidays-table").html("<tr> \n\
+<th>Holiday</th> \n\
+<th>Date</th> \n\
+<th>Anglo-Saxon Date</th> \n\
+</tr>\n");
+      $("#other-holidays-table").html("<tr> \n\
+<th>Holiday</th> \n\
+<th>Date</th> \n\
+<th>Anglo-Saxon Date</th> \n\
+</tr>\n");
+    }
+    
+    function makeCal(yr) {
+      $("#submit").on('click', function() {
+        //e.preventDefault();
+        var str = $("#yrInput").val();
+        var yr = parseInt(str, 10);
+        if (isNaN(yr)) {
+          alert("The input is invalid. Using the current yr instead.");
+          d = new Date();
+          yr = d.getFullYear();
+        }
+        clear();
+        makeCal(yr);
+        return false;
+      });
+      year = yr;
+      initialiseDays(year);
+      newMoons = [];
+      fullMoons = [];
+      monthNames = ["Æfterra Ġēola", "Solmōnaþ", "Hreðmōnaþ", "Ēosturmōnaþ", "Þrimilcemōnaþ", "Ærra Liða", "Þriliða", "Æfterra Liða", "Weodmōnaþ", "Hāliġmōnaþ", "Wintermōnaþ", "Blōtmōnaþ", "Ærra Ġēola"];
+
+      if (yr < 1700 || yr > 2199) {
+        var date = new Date(A.Get.winterSolstice(yr-1));
+        var today = new Date();
+        var leap = true;
+        for(let i=0; i<13; i++) {
+          date = nextNewMoon(date);
+          date.setTime(date.getTime()+36*1000*60*60);
+          newMoons.push(new Date(date));
+          date = nextFullMoon(date);
+          fullMoons.push(new Date(date));
+        }
+
+        yule = new Date(A.Get.winterSolstice(yr)); // Not initialized because its a global
+        var midsummer = new Date(A.Get.summerSolstice(yr));
+        var easter = new Date(fullMoons[3]);
+        if (newMoons[12] > yule) {
+          leap = false;
+          newMoons.pop();
+          fullMoons.pop();
+          monthNames.splice(6, 1);
+        }
+        
+        if (leap==true) {
+          $('#leap').html("<p>Since there are thirteen new moons between the winter solstices of the previous yr and the current yr, this yr is a leap yr.</p>");
+          var winterfylleth = new Date(fullMoons[10]);
+        } else {
+          var winterfylleth = new Date(fullMoons[9]);
+        }
+      } else {
+        var x = yr - 1700;
+        var leap = years[x].leap;
+        for (i=0; i<years[x].new_moons.length; i++) {
+          newMoons.push(new Date(years[x].new_moons[i]));
+          fullMoons.push(new Date(years[x].full_moons[i]));
+        }
+        var midsummer = new Date(years[x].midsummer);
+        var yule = new Date(years[x].yule);
+        var easter = new Date(fullMoons[3]);
+        var M = parseInt(yr - 3) % 19;
+        if (M == 0) {
+          M = 19;
+        }
+        $('#leap').html("<a href=\"https://www.minewyrtruman.com/2021/10/21/the-metonic-cycle/\">Metonic Year</a> "+String(M)+": ");
+        if (leap) {
+          var winterfylleth = new Date(fullMoons[10]);
+          $('#leap').append("Intercalary year");
+        } else {
+          monthNames.splice(6, 1);
+          var winterfylleth = new Date(fullMoons[9]);
+          $('#leap').append("Regular year");
+        }
+      }
+      if (yr == 0) {
+        yr = -1;
+        he = 10000;
+        ce = "1 BCE";
+      } else if (yr < 0) {
+        he = 10001 - Math.abs(yr);
+        ce = String(Math.abs(yr))+" BCE";
+      } else {
+        he = 10000 + yr;
+        ce = String(yr)+" CE";
+      }
+      var yearStr = String(he)+" <a href=\"https://www.minewyrtruman.com/2022/08/30/the-human-era/\">HE</a>/"+ce;
+      $('#current-calendar').html("Anglo-Saxon Calendar for "+yearStr);
+      
+
+      for(let i=0; i<newMoons.length; i++) {
+        txt = "<tr>\n<td>"+monthNames[i]+"</td>\n<td>"+dateString(newMoons[i])+"</td>\n<td>"+dateString(fullMoons[i])+"</td>\n</tr>\n";
+        $('#months-table').append(txt);
+      }
+
+      var txt="<tr>\n<td>Ēosturdæġ</td>\n<td>"+dateString(easter)+"</td>\n<td>"+getASDate(easter)+"</td></tr>";
+      txt += "<tr>\n<td>Midsumor</td>\n<td>"+dateString(midsummer)+"</td>\n<td>"+getASDate(midsummer)+"</td></tr>";
+      txt += "<tr>\n<td>Winterfylleþ</td>\n<td>"+dateString(winterfylleth)+"</td>\n<td>"+getASDate(winterfylleth)+"</td></tr>";
+      txt += "<tr>\n<td>Ġēola</td>\n<td>"+dateString(yule)+"</td>\n<td>"+getASDate(yule)+"</td></tr>";
+      $('#holidays-table').append(txt);
+
+      var sigetiber = new Date(fullMoons[1]); // Sigetiber
+      var lencten = new Date(fullMoons[2]); // Lencten-tíd
+      var blost = new Date(); // Blōstmfrēols- Adding to last day of Eosturmonath
+      blost = addDays(newMoons[4], -1); // https://larhusfyrnsida.com/2017/03/18/blostmfreols/
+      if (leap) {
+        var bendfeorm = new Date(newMoons[8]);
+        var harvest = new Date(fullMoons[9]);
+        var andetnes = new Date(fullMoons[11]);
+      } else {
+        var bendfeorm = new Date(newMoons[7]); //Bendfeorm
+        var harvest = new Date(fullMoons[8]); // Hærfestlíc Freólsung
+        var andetnes = new Date(fullMoons[10]); // Andetnes-blót
+      }
+      var modra1 = new Date(yule);
+      var modra2 = new Date();
+      var modra3 = new Date();
+      var twelfth = new Date();
+      modra2 = addDays(modra1, 2);
+      modra3 = addDays(modra1, 8);
+      twelfth = addDays(modra1, 11); // Twelftadæg
+      txt = "<tr>\n<td>Sigetiber</td>\n<td>"+dateString(sigetiber)+"</td>\n<td>"+getASDate(sigetiber)+"</td></tr>\n";
+      txt += "<tr>\n<td>Lencten-Tīd</td>\n<td>"+dateString(lencten)+"</td>\n<td>"+getASDate(lencten)+"</td></tr>\n";
+      txt += "<tr>\n<td>Blōstmfrēols (<a href=\"https://larhusfyrnsida.com/2017/03/18/blostmfreols/\">Lārhūs Fyrnsida</a>)</td>\n<td>"+dateString(blost)+"</td>\n<td>"+getASDate(blost)+"</td></tr>\n";
+      txt += "<tr>\n<td>Bendfeorm</td>\n<td>"+dateString(bendfeorm)+"</td>\n<td>"+getASDate(bendfeorm)+"</td></tr>\n";
+      txt += "<tr>\n<td>Hærfestlīc Freōlsung</td>\n<td>"+dateString(harvest)+"</td>\n<td>"+getASDate(harvest)+"</td></tr>\n";
+      txt += "<tr>\n<td>Andetnes-blōt</td>\n<td>"+dateString(andetnes)+"</td>\n<td>"+getASDate(andetnes)+"</td></tr>\n";
+      txt += "<tr>\n<td>Mōdraniht (Traditional)</td>\n<td>"+dateString(modra1)+"</td>\n<td>"+getASDate(modra1)+"</td></tr>\n";
+      txt += "<tr>\n<td>Mōdraniht (Mine Wyrtruman)</td>\n<td>"+dateString(modra2)+"</td>\n<td>"+getASDate(modra2)+"</td></tr>\n";
+      txt += "<tr>\n<td>Mōdraniht (Ingwine)</td>\n<td>"+dateString(modra3)+"</td>\n<td>"+getASDate(modra3)+"</td></tr>\n";
+      txt += "<tr>\n<td>Twelftadæg</td>\n<td>"+dateString(twelfth)+"</td>\n<td>"+getASDate(twelfth)+"</td></tr>\n";
+      $('#other-holidays-table').append(txt);
+      
+      showCalendar(year, calMonth);
+      
+      if ($('#today').text() == "") {
+        var now = new Date();
+        var asdate = "Today is the "+getASDate(now);
+        $('#today').append(asdate);
+      }
+
+      if (yr<1583) {
+        alert("Dates before the switch from the Julian Calendar to the Gregorian Calendar will use the Julian date that was in use at the time.");
+      }
+
+      today.setFullYear(yr);
+      if (today.getDate() < 10) {
+          day = "0"+today.getDate();
+      } else {
+          day = today.getDate().toString();
+      }
+      ts = today.getFullYear().toString()+"-"+(today.getMonth()+1).toString()+"-"+day;
+      
+      $("#chosendate").attr("value", ts);
+      
+    }
+    
+    function addDays(d, days) {
+      var result = new Date(d);
+      result.setDate(result.getDate() + days);
+      return result;
+    }
+
+    function dateString(d) {
+      var months=["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+      var days=["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+      var yr = d.getFullYear();
+      var he = 0;
+      var ce = "";
+      if (yr == 0) {
+        yr = -1;
+        he = 10000;
+        ce = "1 BCE";
+      } else if (yr < 0) {
+        he = 10001 - Math.abs(yr);
+        ce = String(Math.abs(yr))+" BCE";
+      } else {
+        he = 10000 + yr;
+        ce = String(yr)+" CE";
+      }
+      //var dstr = days[d.getDay()]+" "+months[d.getMonth()]+" "+String(d.getDate())+" "+he+" <a href=\"https://www.minewyrtruman.com/2022/08/30/the-human-era/\">HE</a> ("+ce+")";
+      var dstr = days[d.getDay()]+" "+months[d.getMonth()]+" "+String(d.getDate())+" "+ce;
+      return dstr;
+    }
+    
+    function nextNewMoon(date) {
+      var j12000 = new Date(Date.UTC(2000, 0, 1));
+      var nm2000 = new Date(2000, 0, 6, 13, 14);
+      var N = Math.ceil((date.getTime()-nm2000.getTime())/(1000*60*60*24)/29.5305888610);
+      var d = (5.597661+29.5305888610*N+(102.026*10**-12)*N**2)+(-0.000739-(235*10**-12)*N**2);
+      date.setTime(j12000.getTime()+d*86400000);
+      if (date<convert) {
+        date = toJulian(date);
+      }
+      return date;
+    }
+    
+    function nextFullMoon(date) {
+      var j12000 = new Date(Date.UTC(2000, 0, 1));
+      var fm2000= new Date(2000, 0, 20, 23, 41)
+      var N = Math.ceil((date.getTime()-fm2000.getTime())/(1000*60*60*24)/29.5305888610);
+      var d = (20.362000+29.5305888610*N+(102.026*10**-12)*N**2)+(-0.000739-(235*10**-12)*N**2);
+      date.setTime(j12000.getTime()+d*86400000);
+      if (date<convert) {
+        date = toJulian(date);
+      }
+      return date;
+    }
+    
+    function getASDate(d) {
+      var i=0;
+      d = new Date(d.toDateString());
+      var y = d.getFullYear();
+
+      while (d > newMoons[i]) {
+        if (i-1 == newMoons.length) break;
+        i++;
+      }
+      i--;
+      try {
+        if (d.toDateString() == newMoons[i+1].toDateString()) {
+          return "1st of "+monthNames[i+1];
+        }
+      }
+      catch(err) {
+        console.log(err);
+      }
+      newMoon = new Date(newMoons[i].toDateString());
+      var month = monthNames[i];
+      var day = ((d.getTime()-newMoon.getTime())/(24*60*60*1000))+1;
+      var newYear = new Date(s[year+1-1700].new_moons[0]);
+      var isNextYear = false;
+      if (d >= newYear) {
+        newMoon = newYear;
+        day = ((d.getTime()-newMoon.getTime())/(24*60*60*1000))+1;
+        month = "Æfterra Ġēola";
+        isNextYear = true;
+      }
+
+      var dateStr = getOrdinal(Math.round(day))+" of "+month;
+      if (isNextYear) {
+        dateStr += ", " + (year+1).toString() + " CE";
+      }
+      return dateStr;
+    }
+    
+    function convertDate(d) {
+    }
+    
+    function toJulian(d) {
+      yr = d.getFullYear();
+      century = Math.floor(yr/100);
+      offset = Math.ceil(century*0.75)-2;
+      var j = new Date(d);
+      j.setDate(d.getDate()-offset);
+      return j;
+    }
+    
+    function getOrdinal(n) {
+      if (n%100<20 && n%100>10) {
+        str = String(n)+"th";
+      } else if (n%10==1) {
+        str = String(n)+"st";
+      } else if (n%10==2) {
+        str = String(n)+"nd";
+      } else if (n%10==3) {
+        str = String(n)+"rd";
+      } else {
+        str = String(n)+"th";
+      }
+      return str;
+   }
+   
+  function addEvent(j, event) {
+    days[getJday(new Date(j))] += "<br />" + event;
+  }
+  
+  function getJday(j) {
+    var now = new Date(j);
+    var start = new Date(now.getFullYear(), 0, 1);
+    var diff = (now - start) + ((start.getTimezoneOffset() - now.getTimezoneOffset()) * 60 * 1000);
+    var oneDay = 1000 * 60 * 60 * 24;
+    return Math.floor(diff / oneDay);
+  }
+  
+  function initialiseDays(year) {
+    var x = new Date(year, 0, 1);
+    for (let i=0; i<days.length; i++) {
+      days[i] = "<b>"+x.getDate()+"</b>";
+      x.setDate(x.getDate()+1);
+    }
+  }
+  
+  function showCalendar(y, m) {
+    const months= ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    
+    var day = new Date(y, m, 1);
+    $("#monthHead").text(y+"-"+m);
+    var txt = "<tr>\n<th>Sun</th>\n<th>Mon</th>\n<th>Tues</th>\n<th>Wed</th>\n<th>Thu</th>\n<th>Fri</th>\n<th>Sat</th>\n</tr>\n<tr>\n";
+    for (var i=0; i<day.getDay(); i++) {
+      txt += "<td style=\"border: none;\"></td>\n";
+    }
+    while (day.getMonth() == m) {
+      if (day.getDay() == 0)  {
+        txt += "</tr>\n<tr>";
+      }
+      txt += "<td style=\"height: 5em;word-wrap: break-word;vertical-align: top;text-align: left;width: 14%;\">"+days[getJday(day)]+"</td>\n";
+      day.setDate(day.getDate() + 1);
+    }
+    
+    txt += "</tr>";
+    $("#calDisp").html(txt);
+//    $("#monthHead").text(months[m]+ " "+);
+  }
+</script>

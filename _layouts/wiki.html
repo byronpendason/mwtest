@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/wiki.css">
+    <link rel="icon" type="image/jpg" href="/media/penda.jpg">
+
+    <!-- HTML Meta Tags -->
+    <title>{{ page.title }} | Fyrnsidu Wiki</title>
+    <meta name="description" content="{% if page.excerpt %}{{ page.excerpt | strip_html | strip_newlines | truncatewords: 25}}{% else %}{{ site.description }}{% endif %}">
+
+    <!-- Google / Search Engine Tags -->
+    <meta itemprop="name" content="{{ page.title }} | Fyrnsidu Wiki">
+    <meta itemprop="description" content="{% if page.excerpt %}{{ page.excerpt | strip_html | strip_newlines | truncatewords: 25}}{% else %}{{ site.description }}{% endif %}">
+    <meta itemprop="image" content="https://byronpendason.github.io/media/penda.jpg">
+
+    <!-- Facebook Meta Tags -->
+    <meta property="og:url" content="https://byronpendason.github.io{{ page.url }}">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="{{ page.title }} | Fyrnsidu Wiki">
+    <meta property="og:description" content="{% if page.excerpt %}{{ page.excerpt | strip_html | strip_newlines | truncatewords: 25}}{% else %}{{ site.description }}{% endif %}">
+    <meta property="og:image" content="https://byronpendason.github.io/media/penda.jpg">
+
+    <!-- Twitter Meta Tags -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="{{ page.title }} | Fyrnsidu Wiki">
+    <meta name="twitter:description" content="{% if page.excerpt %}{{ page.excerpt | strip_html | strip_newlines | truncatewords: 25}}{% else %}{{ site.description }}{% endif %}">
+    <meta name="twitter:image" content="https://byronpendason.github.io/media/penda.jpg">
+
+    <!-- Meta Tags Generated via http://heymeta.com -->
+  </head>
+  <body>
+<div id="header">
+<h1>Fyrnsidu Wiki</h1>
+</div>
+<div id="content">
+{% if page.title != "Index" %}
+<button type="button" id="artBtn" onClick="showArt()" style="margin:5px;padding:5px;">Article</button><button type="button" id="talkBtn" onClick="showTalk()" style="margin:1px;padding:5px;">Talk</button><a href="/wiki/" style="margin:1px;">Wiki Home</a>
+<h1>{{page.title}}</h1>
+{% endif %}
+<div id="article">
+{{ content }}
+</div>
+{% unless page.title == "Index" %}
+<div id="disqus_thread" hidden>
+</div>
+<script>
+    /**
+    *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+    *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+    /*
+      var disqus_config = function () {
+      this.page.url = {{ site.url }}{{ page.url }};  // Replace PAGE_URL with your page's canonical URL variable
+      this.page.identifier = {{ page.title | slugify }}; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+      (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = 'https://mine-wyrtruman.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+      })();
+</script>
+{% endunless %}
+</div>
+{% include wikilinks.html %}
+<script>
+function showTalk() {
+  $("#disqus_thread").show();
+  $("#article").hide();
+}
+
+function showArt() {
+  $("#disqus_thread").hide();
+  $("#article").show();
+}
+</script>
+</body>
+</html>
+

@@ -1,0 +1,111 @@
+---
+layout: nil
+sitemap:
+  exclude: 'yes'
+---
+
+body, html {
+  background-color: rgb(150, 150, 150);
+  color: black;
+  min-height:100%;
+  padding: 0px;
+  margin: 0px;
+}
+#header {
+  color: black;
+}
+#header * {
+  text-align: center;
+}
+nav {
+  background: rgb(25, 25, 112);
+  color: white;
+}
+nav * {
+  text-align: center;
+}
+nav a {
+  color: white;
+  text-decoration: underline solid 1px;
+  margin-top: 0.25em;
+  margin-bottom: 0.25em;
+}
+.dropdown {
+  position: relative;
+  display: block;
+}
+.dropbtn {
+  display: block;
+  font-size: 1.25em;
+  text-decoration: underline overline double 1px;
+}
+.dropdownContent {
+  display: none;
+  position: absolute;
+  background: rgb(25, 25, 112);
+  width: 100%;
+  box-sizing: border-box;
+}
+.dropdown:hover .dropdownContent {
+  display: block;
+}
+#content {
+  background: rgb(200, 200, 200);
+  color: black;
+  padding: 10px;
+  min-height: 85%;
+}
+dt {
+  font-weight: bold;
+}
+.PageNavigation {
+  display: block;
+  width: auto;
+  overflow: hidden;
+}
+.PageNavigation a {
+  display: block;
+  width: 50%;
+  float: left;
+  margin: 1em 0;
+  font-size: 16px;
+  color: white;
+}
+.PageNavigation .next {
+  text-align: right;
+}
+
+h6 {
+  margin-top: 0;
+  padding-top: 0;
+}
+ul#results-container {
+  padding: 0;
+  list-style-type: none;
+}
+
+#results-container li {
+  margin-bottom: 1.5rem;
+}
+
+span.post-meta {
+  font-size: 1rem;
+}
+
+table {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+table, the, td {
+  border: 1px solid;
+}
+
+td {
+  text-align: center;
+}
+
+th {
+  background-color: midnightblue;
+  color: white;
+}

@@ -1,0 +1,19 @@
+<script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
+<script>
+  $(document).ready(function() {
+    let content = $("#content").html();
+    let pat = /\[\[[A-Za-z0-9]+\]\]/g;
+    var results = pat.exec(content);
+    
+    for(let i=0; i<results.length; i++) {
+      var x = results[i].length - 2;
+      let term = results[i].substring(2, x);
+      let url = term.toLowerCase();
+      let html = '<a href="'+url+'">'+term+'</a>';
+      content = content.replace(results[i], html);
+    }
+
+    $("#content").html(content);
+  });
+ 
+</script>

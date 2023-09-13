@@ -1,0 +1,121 @@
+<div id="calendar">
+  <div id="debug"></div>
+  <h2 id="current-calendar"></h2>
+  <h5 id="leap"></h5>
+  <form style="width:100%">
+    <label>Enter year:</label>
+    <input type="text" id="yrInput" style="width:5em" placeholder="CE only">
+    <button type="button" id="submit" value="Get Calendar">Get Calendar</button>
+  </form>
+  
+  <h3>Months</h3>
+  <table id="months-table" style="width:100%">
+  </table>
+  
+  <h3>High Holidays</h3>
+  <p>These are the holidays that almost every Heathen observes (though usually by a different name and possibly at other times).</p>
+  <table id="holidays-table" style="width:100%">
+  </table>
+  
+  <h3>Other Holidays</h3>
+  <p>These holidays are far from universal, but are observed by at least some Heathens who use the pre-Christian Anglo-Saxons as a primary source for their spirituality. Most of these are taken from the Ingvaeonic Society's <a href="https://ingwine.org/knowledge-base-2/the-holy-calendar/">The Holy Calendar</a>, unless another source is listed in parenthesis.</p>
+  <table id="other-holidays" style="width:100%">
+  </table>
+  <p id="today"></p>
+  <h3>Date Converter</h3>
+  <p>Enter a Date below, and it will be converted to the Anglo-Saxon Date. If the Date is outside the currently selected year, this page will refresh with the calendar for that year.</p>
+  <form>
+      <label for="chosenDate">Choose a Date:</label>
+      <input type="Date" id="chosenDate" name="chosenDate">
+  </form>
+  <p id="conv"></p>
+</div>
+
+<script type="text/python">
+from browser import document, html
+from datetime import datetime, timedelta
+
+def showCalendar(year):
+  monthNames = ["Æfterra Ġēola", "Solmōnaþ", "Hreðmōnaþ", "Ēosturmōnaþ", "Þrimilcemōnaþ", "Ærra Liða", "Þriliða", "Æfterra Liða", "Weodmōnaþ", "Hāliġmōnaþ", "Wintermōnaþ", "Blōtmōnaþ", "Ærra Ġēola"]
+  if year.leap == False:
+    monthNames.pop(6)
+  document["months-table"] <= html.TR(html.TH("Month")+html.TH("Starts")+html.TH("Full Moon"))
+  for i in range(len(monthNames)):
+    name = monthNames[i]
+    nm = year.newMoons[i].strftime("%a, %b %d, %Y CE")
+    fm = year.fullMoons[i].strftime("%a, %b %d, %Y CE")
+    document["months-table"] <= html.TR(html.TD(name)+html.TD(nm)+html.TD(fm))
+  document["holidays-table"] <= html.TR(html.TH("Holiday")+html.TH("Date")+html.TH("AS Date"))
+  document["holidays-table"] <= html.TR(html.TD("Ēosturdæġ")+html.TD(year.eostur.strftime("%a, %b %d, %Y CE"))+html.TD(getASDate(year.eostur)))
+  document["holidays-table"] <= html.TR(html.TD("Midsumor")+html.TD(year.midsummer.strftime("%a, %b %d, %Y CE"))+html.TD(getASDate(year.midsummer)))
+  document["holidays-table"] <= html.TR(html.TD("Winterfylleþ")+html.TD(year.winterfylleth.strftime("%a, %b %d, %Y CE"))+html.TD(getASDate(year.winterfylleth)))
+  document["holidays-table"] <= html.TR(html.TD("Winterfylleþ")+html.TD(year.yule.strftime("%a, %b %d, %Y CE"))+html.TD(getASDate(year.yule)))
+  document["current-calendar"].text = "Anglo-Saxon Calendar for " + years[x].yr
+  document["today"] <= "Today is the "+getASDate(date)
+
+def debug(msg):
+ document["debug"] <= html.P("DEBUG: "+msg)
+
+def getASDate(d):
+  monthNames = ["Æfterra Ġēola", "Solmōnaþ", "Hreðmōnaþ", "Ēosturmōnaþ", "Þrimilcemōnaþ", "Ærra Liða", "Þriliða", "Æfterra Liða", "Weodmōnaþ", "Hāliġmōnaþ", "Wintermōnaþ", "Blōtmōnaþ", "Ærra Ġēola"]
+  yr = makeCalendar(d.year)
+  if yr.leap == False:
+    monthNames.pop(6)
+  m = 0
+  while d.toordinal() > yr.newMoons[m].toordinal():
+    if m-1 == len(yr.newMoons):
+      break
+    m += 1
+  m -= 1
+  day = d.toordinal() - yr.newMoons[m].toordinal() + 1
+  return getOrdinal(day)+" of "+monthNames[m]
+  
+def getOrdinal(x):
+  if x%100 == 11 or x%100 == 12 or x%100 == 13:
+    return str(x)+"th"
+  elif x%10 == 1:
+    return str(x)+"st"
+  elif x%10 == 2:
+    return str(x)+"nd"
+  elif x%10 == 3:
+    return str(x)+"rd"
+  else:
+    return str(x)+"th"
+    
+class Year:
+  def __init__(self, year, midsummer, yule, nm, fm, leap):
+    date_string = '%Y/%m/%d %H:%M:%S'
+    self.yr = year
+    self.midsummer = datetime.strptime(midsummer, date_string)
+    self.yule = datetime.strptime(yule, date_string)
+    self.newMoons = []
+    self.fullMoons = []
+    self.leap = leap
+    for i in range(len(nm)):
+      if nm[i] != "":
+        self.addNewMoon(nm[i])
+      if full_moons[i] != "":
+        self.addFullMoon(fm[i])
+    self.eostur = self.fullMoons[3]
+    if self.leap:
+      self.winterfylleth = self.fullMoons[10]
+    else:
+      self.winterfylleth = self.fullMoons[9]
+  def addNewMoon(self, d):
+    date_string = '%Y-%m-%dT%H:%M:%S'
+    temp = datetime.strptime(d, date_string)
+    self.newMoons.append(temp)
+  def addFullMoon(self, d):
+    date_string = '%Y-%m-%dT%H:%M:%S'
+    temp = datetime.strptime(d, date_string)
+    self.fullMoons.append(temp)
+    
+debug("The start of the script")
+years = []
+{% for yr in site.data.calendar %}
+years.append(Year({{ yr.year }}, {{ yr.midsummer }}, {{ yr.yule }}, [{{ yr.new_moons | join: ", " }}], [{{ yr.full_moons | join: ", " }}], {{ yr.leap }}))
+{% endfor %}
+date = datetime.now()
+x = date.year - 1700
+showCalendar(years[x])
+</script>

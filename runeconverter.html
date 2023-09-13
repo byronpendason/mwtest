@@ -1,0 +1,110 @@
+---
+permalink: /runeconverter
+sitemap:
+  exclude: yes
+---
+<!doctype html>
+<html>
+<head>
+	<title>Rune Converter</title>
+	<meta charset="UTF-8">
+	<meta name="description" content="Convert modern English text into the Anglo-Saxon runes!">
+	<meta name="author" content="ByronEugene1">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+	<style>
+		body {
+			background-color: black;
+			color: white;
+		}
+	</style>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	<script type="text/javascript" src="https://rawcdn.githack.com/zenorocha/clipboard.js/v2.0.8/dist/clipboard.min.js"></script>
+	<script type="text/javascript">
+		var w = $(window).width();
+		$('body').css('width', w);
+		function isVowel(x) {
+    		if ("aeiou".search(x) > -1) {
+      		return true;
+    		} else {
+      		return false;
+      	}
+		}
+		
+		$(document).ready(function() {
+			$("#clearBtn").bind("click", function() {
+    			$("#engInput").val("");
+    			$("#runeOutput").hide();
+			});
+			$("#convertBtn").bind("click", function() {
+				const runes = ["ᚦ", "ᛝ", "ᛟ", "ᛠ", "ᛇ", "ᛥ", "ᛢ", "ᛡ", "ᚫ", "ᛒ", "ᚳ", "ᛞ", "ᛖ", "ᚠ", "ᚷ", "ᚻ", "ᛁ", "ᛄ", "ᛣ", "ᛚ", "ᛗ", "ᚾ", "ᚩ", "ᛈ", "ᛣ", "ᚱ", "ᛋ", "ᛏ", "ᚢ", "ᚢ", "ᚹ", "ᛉ", "ᚣ", "ᚴ"];
+				const letters = ["th", "ng", "ee", "ea", "eo", "st", "qu", "io", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+				var txt = $("#engInput").val();
+				txt = txt.trim();
+				if (txt.search(/[\u16a0-\u16ed]/)>-1) {
+					for (var i = 0; i < letters.length; i++) {
+						var reg = new RegExp(runes[i], "gim");
+						txt = txt.replace(reg, letters[i]);
+					}
+					txt = txt.replace(/᛫/gmi, " ");
+					txt = txt.replace(/᛬/gmi, ". ");
+					txt = txt.replace(/᛭/gmi, ", ");
+					txt = txt.replace(/u([aeiou])/gmi, "v$1");
+					txt = txt.replace(/([aeiou])u/gmi, "$1v");
+					txt = txt.replace(/yov/gmi, "you");
+					txt = txt.replace(/ouer/gmi, "over");
+					txt = txt.replace(/([aeo])v([^aeiouy])/gmi, "$1u$2");
+					txt = txt.replace(/([b-df-hj-np-tv-z])va([b-df-hj-np-tv-z])/gmi, "$1ua$2");
+					txt = txt.replace(/qv/gmi, "qu");
+					txt = txt.replace(/([b-df-hj-np-tv-z])vi([^o])/gmi, "$1ui$2");
+					txt = txt.trim();
+					capList = txt.match(/^[a-z]|[\.\!\?]\s+[a-z]|\n[a-z]/g);
+					for(i = 0; i < capList.length; i++) {
+    					txt = txt.replace(capList[i], capList[i].toUpperCase());
+    					txt = txt.replace(/(Are|Did|Who|What|When|Where|Why)([a-z0-9\s\,]*)\./gm, "$1$2?");
+					}
+				} else {
+					txt = txt.normalize("NFD");
+					txt = txt.replace(/[^a-zA-Z0-9\.\,\s\!\?\(\)\{\}\[\]\-\u16A0-\u16edþæðđ]/gmi, "");
+					txt = txt.replace(/[þðđ]/gmi, "th");
+    				txt = txt.replace(/æ/gmi, "a");
+    				txt = txt.replace(/aa/gmi, "a");
+					txt = txt.replace(/oo/gmi, "o");
+					for (var i = 0; i < letters.length; i++) {
+						var reg = new RegExp(letters[i], "gim");
+						txt = txt.replace(reg, runes[i]);
+					}
+					txt = txt.replace(/\ /gmi, "᛫");
+					txt = txt.replace(/\,\u16eb*/gm, "᛭");
+					txt = txt.replace(/[\.\?\!\;]\u16eb*/gmi, "᛬");
+				}
+				$("#runeOutput").val(txt);
+				$("#runeOutput").show();
+			});
+			$("#runeOutput").bind("click", function()  {
+					var txt = $("#runeOutput").val();
+					//txt.setSelectionRange(0, 99999);
+					navigator.clipboard.writeText(txt)
+					.then(() => alert("Copied to clipboard:\n"+txt))
+					.catch(() => $("#runeOutput".select()));
+				});
+		});
+	</script>
+</head>
+<body>
+	<h1 style="width:100%;text-align:center;">Rune Converter</h1>
+	<form>
+		<label for="engInput" style="width:100%;">Text to convert:</label>
+		<br />
+		<textarea id="engInput" name="engInput" type="text" style="width:100%;height:40%;"></textarea>
+		<br />
+		<button type="button" id="convertBtn" name="convertBtn" style="width:49%;">Convert!</button>
+    	<button type="button" id="clearBtn" name="clearBtn" style="width:49%">Clear</button>
+	</form>
+	<textarea readonly hidden id="runeOutput" style="width:100%;font-size:large;height:50%;background-color:black;color:white"></textarea>
+  <h2>Please Note</h2>
+  <p>This page converts English text to Anglo-Saxon runes (aka the Futhorc) and vice versa. It auto-detects whether the entered text is runic by searching the input for any runic symbols. If it detects that the input is runic, it will convert the runes into our regular alphabet. Otherwise, it will attempt to convert the text to runes. To do this, all accent and diacritic marks are removed, as is any symbols that isn't part of the standard English alphabet, numbers, or basic punctuation (spaces, commas, question marks, periods , etc). It will then do a basic substitution of letters to runes, or versa. When translating from runes to letters, there will be no capitalisation and all punctuation will be either commas or periods. Since u and v are represented by the same rune in my system of writing in runes, some u's in the output may be meant to be v's. Since converting between runes and english letters isn't an exact science, context will need to be employed to figure out what the English is supposed to be saying.<p>
+  <h6>© 2021 <a href="https://twitter.com/ByronEugene1">Byron Eugene.</a>
+</body>
+</html>uto-detects whether the entered text is runic by searching the input for any runic symbols. If it detects that the input is runic, it will convert the runes into our regular alphabet. Otherwise, it will attempt to convert the text to runes. To do this, all accent and diacritic marks are removed, as is any symbols that isn't part of the standard English alphabet, numbers, or basic punctuation (spaces, commas, question marks, periods , etc). It will then do a basic substitution of letters to runes, or versa. When translating from runes to letters, there will be no capitalisation and all punctuation will be either commas or periods. Since u and v are represented by the same rune in my system of writing in runes, some u's in the output may be meant to be v's. Since converting between runes and english letters isn't an 
