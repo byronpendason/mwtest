@@ -3,6 +3,8 @@ layout: nil
 sitemap:
   exclude: 'yes'
 ---
+/* this is a comment to test whether I can commit */
+
 body {
   min-height:100%;
   margin: 0px;
