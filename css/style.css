@@ -14,8 +14,8 @@ body {
   background-size: cover;
   position: center;
   color: #370303;
-  margin: 0px;
-  margin-top: 0px;
+  position:absolute;
+  top: 0;
 }
 .title a {
   color:#370303;
