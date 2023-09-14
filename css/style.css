@@ -23,7 +23,10 @@ body {
 }
 @media screen and (max-width: 800px) {
   .title a {
-    font-size: 1.25em;
+    font-size: 1.15em;
+  }
+  .subtitle {
+    font-size: 1.07em;
   }
 }
 .page-title {
