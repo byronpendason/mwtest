@@ -3,7 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/mwtest/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com"> 
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
+<link href="https://fonts.googleapis.com/css2?family=Almendra+SC&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="mwtest/css/style.css">
     {% if page.runes %}
     <link href="https://cdn.jsdelivr.net/gh/PatrickElmer/Junicode@main/junicode.css" rel="stylesheet">
     <link rel="icon" type="image/jpg" href="/media/penda.jpg">
@@ -52,9 +55,22 @@
       <h1 class="title"><a href="/">{{ site.title }}</a></h1>
       <p class="subtitle">{{ site.byline }}</p>
     <nav>
+      <div class="nav-list">
           {% for item in site.header_pages %}
-          <a href="{{ item.url }}">{{ item.title }}</a>
-          {% endfor %}
+          <div class="nav-item">
+            {% if item.url %}
+            <a href="{{ item.url }}">{{ item.title }}</a>
+            {% else %}
+            <a>{{ item.title }}</a>
+            <div class="dropdown">
+              {% for sub in item.subpages %}             
+                <a href="{{ sub.url }}">{{ sub.title }}</a>
+              {% endfor %}
+            </div>
+            {% endif %}
+          </div>            
+            {% endfor %}
+      </div>
     </nav>
     </div>
     <div id="content">
@@ -62,10 +78,10 @@
       <ul id="results-container"></ul>
 
       {% if page.layout == "post" %}
-      <h1>{{ page.title }}</h1>
+      <h1 class="page-title">{{ page.title }}</h1>
       <h6>Posted {% if page.author %}by {{ page.author }}{% endif %}{% if page.date %} on <span id="date"></span>,{% endif %}{% if page.categories %} in {% for category in page.categories %}<a href="/search#{{ category | slugify}}">{{ category | capitalize }}</a>{% unless forloop.last %}, {% endunless %}{% endfor %}{% endif %}</h6>
 <script type="text/javascript">
-      var d = new Date("{{ page.date | date: "%B %-d, %Y" }}");
+      var d = new Date("{{ page.date }}");
       var months=["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
       var days=["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
       var yr = d.getFullYear();

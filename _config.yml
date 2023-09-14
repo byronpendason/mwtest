@@ -52,30 +52,32 @@ defaults:
 header_pages:
   - title: Home
     url: /
-  - title: Introduction to Fyrnsidu
-    url: /fyrnsidu_intro/
-  - title: Blog
+  - title: Mine Wyrtrum Blog
     url: /blog
-  - title: Glossary and Resources for Beginners
-    url: /glossary
-  - title: The Reconstructed Anglo-Saxon Calendar
+  - title: Fyrnsidu Newcomer Resources
+    subpages:
+      - title: Glossary & Beginner Resources
+        url: /glossary
+      - title: Introduction to Fyrnsidu
+        url: /fyrnsidu_intro/
+      - title: A Ritual of Thanksgiving
+        url: /ritual_of_thanksgiving
+  - title: Calendar Reconstruction
     url: /anglosaxoncalendar
-  - title: Games
-    url: /games
-  - title: About
-    url: /about
-  - title: Contact Me
-    url: /contact
-  - title: Search Site
-    url: /search
-  - title: Blog Post Requests
-    url: /requests
-  - title: A Ritual of Thanksgiving
-    url: /ritual_of_thanksgiving
   - title: Declaration of Deeds 
     url: /declaration-of-deeds
-  - title: RuneTyper
-    url: /runetyper
+  - title: Contact
+    subpages:
+      - title: Contact Byron
+        url: /contact
+      - title: Blog Post Requests
+        url: /requests
+  - title: Fun Stuff
+    subpages:
+      - title: RuneTyper
+        url: /runetyper
+      - title: Games
+        url: /games
 plugins:
   - jekyll-feed
 # Analytics
