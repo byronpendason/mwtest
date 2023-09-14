@@ -110,31 +110,57 @@ ul#results-container {
 span.post-meta {
   font-size: 1rem;
 }
+.holiday-name {
+    width: 35%;
+}
+
+button {
+    background-color: #370303;
+    color:#F6EDDC;
+    padding: 8px;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    padding: 9px;
+}
+
+input {
+    padding: 6px;
+    width: 100px;
+}
+
 table {
-  border-width: 1px;
-  width: 100%;
-  border-collapse: collapse;
-  border: 2px solid black;
-  text-align: center;
+    border-width: 1px;
+    width: 100%;
+    border-collapse: collapse;
+    border: solid 1px #370303;
 }
+
 tr:nth-child(even) {
-  background-color: #C8B5A2;
+    background-color: #C8B5A2;
 }
+
 tr:nth-child(odd) {
-  background-color: #F6EDDC;
+    background-color:#F6EDDC;
 }
+
 tr:hover {
-  background-color: lightskyblue;
-  cursor:default;
+    background-color: #370303;
+    color: #F6EDDC;
+    cursor:default;
 }
+
 th {
-  background-color: #370303;
-  color: whitesmoke;
-  padding: 10px;
-  font-family: sans-serif;
+    background-color: #370303;
+    color: #F6EDDC;
+    padding: 10px;
+    font-family: serif;
 }
+
 td {
-  padding: 10px;
+    padding: 10px;
 }
 a.disabled {
   color: #999;
@@ -155,4 +181,32 @@ a.disabled:hover {
   font-size:2em;
   margin-top: 0px;
   text-align: center;
+}
+
+#year-info {
+  margin-bottom: 20px;
+}
+
+label {
+  display: inline-block;
+  min-width: 100px;
+  margin-bottom: 5px;
+}
+
+#converted-date {
+  display: inline-block;
+  margin-left: 20px;
+  min-width: 100px;
+}
+
+.bold {
+  font-weight: 600;
+}
+
+#footer {
+  background-color: #370303;
+  color:#F6EDDC;
+  text-align: center;
+  margin: 0;
+  padding: 10px;
 }

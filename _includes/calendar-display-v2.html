@@ -1,0 +1,66 @@
+<h1 class="page-title">The Anglo-Saxon Calendar</h1>
+<h2 class="page-subtitle">&#8212;A Reconstruction&#8212;</h2>
+
+<div id="year-info">
+    <span>For the Year  <span id="lbl-selected-year-he"></span>
+    <a href="https://www.minewyrtruman.com/2022/08/30/the-human-era/">HE</a>/<span id="lbl-selected-year"></span> CE</span>
+    <br />
+
+    <a href="https://www.minewyrtruman.com/2021/10/21/the-metonic-cycle/">Metonic Year</a>
+    <span id="lbl-metonic-year"></span>:
+    <span id="lbl-intercalary-year"></span>
+    <br />            
+</div>
+<span class="bold">Today is <span id="lbl-today"></span></span>
+
+<label for="txt-input-year">Enter Year</label>
+<input type="text" name="txt-input-year" id="txt-input-year" />
+<button id="btn-get-calendar">Get Calendar</button>
+<br />
+
+<label for="txt-date-to-convert">Select a date</label>
+<input type="date" name="txt-date-to-convert" id="txt-date-to-convert" />
+<button id="btn-convert-date">Convert Date</button>
+<span id="converted-date bold"></span>       
+
+<h2 class="table-heading">Months</h2>
+<table id="months"></table>
+
+<h2 class="table-heading">High Holidays</h2>
+<table id="holiday-high"></table>
+
+<h2 class="table-heading">Other Holidays</h2>
+<table id="holiday-minor"></table>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script type="text/javascript" src="./js/calendar.js"></script>
+<script type="text/javascript" src="./js/calendar-display.js"></script>
+
+<script type="text/javascript">
+
+    // Fetch years' data from yaml *cries*
+    var yearsData = new Array(); 
+    
+    {% for yr in site.data.calendar %}
+        var y{{ yr.year }} = {  year: {{ yr.year }}, 
+                                summer_solstice: "{{ yr.midsummer }}", 
+                                winter_solstice: "{{ yr.yule }}", 
+                                new_moons: ["{% for nm in yr.new_moons %}{{ nm }}", "{% endfor %}"], 
+                                full_moons: ["{% for fm in yr.full_moons %}{{ fm }}", "{% endfor %}"], 
+                                is_leap_year: {{ yr.leap }}};
+        y{{ yr.year }}.new_moons.pop();
+        y{{ yr.year }}.full_moons.pop();
+        yearsData.push(y{{ yr.year }});
+    {% endfor %}
+
+    var calendar = Calendar(yearsData); // Create Calendar object
+
+    $(document).ready(function(){
+        getCalendar(2023); // Initialize the calendar. Probably should have code to get the current year.
+        $('#lbl-today').html(calendar.ConvertDate(new Date()));
+
+        $('#btn-get-calendar').click(btnGetCalendar_click);
+        $('#btn-convert-date').click(btnConvertDate_click);
+    });
+
+</script>

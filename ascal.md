@@ -6,10 +6,13 @@ excerpt: "Everything we know about the Anglo-Saxon Calendar comes from the Vener
 permalink: /anglosaxoncalendar
 categories: [anglo-saxon calendar, heathen worship, reconstruction]
 ---
+{% include calendar-display-v2.html %}
 
-# The Reconstructed Anglo-Saxon Calendar
+## Instructions
 
-{% include calendar-displau.html %}
+Enter a Common Era year to see the reconstructed calendar dates.
+
+Alternatively, enter a specific date, and it will be converted to the Anglo-Saxon date. If the date is outside the currently selected year, this page will refresh with the calendar for that year.
 
 ## About the Anglo-Saxon Calendar
 
