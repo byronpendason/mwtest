@@ -21,7 +21,11 @@ body {
   font-family: 'Almendra SC', serif;
   font-size: 1.5em;
 }
-
+@media screen and (max-width: 600px) {
+  .title a {
+    font-size: 32px;
+  }
+}
 .page-title {
   font-family: 'Almendra SC', serif;
   font-size: 3em;
