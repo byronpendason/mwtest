@@ -20,6 +20,8 @@ body {
   text-align: center;
   font-family: 'Almendra SC', serif;
   font-size: 1.5em;
+  text-decoration: none;
+  border-bottom: 2px solid #370303;
 }
 
 .page-title {
