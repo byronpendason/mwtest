@@ -26,8 +26,8 @@ function Calendar(years) {
         var date = new Date(_years.find((yr) => yr.year == this.Year-1).winter_solstice);
         var selectedYear = _years.find((yr) => yr.year == this.Year);
 
-        this.WinterSolstice = new Date(selectedYear.winter_solstice);
-        this.SummerSolstice = new Date(selectedYear.summer_solstice);
+        this.WinterSolstice = new Date(selectedYear.winter_solstice.split(" ")[0]);
+        this.SummerSolstice = new Date(selectedYear.summer_solstice.split(" ")[0]);
         this.IsLeapYear = selectedYear.is_leap_year;
 
         var tempMonths = new Array();
@@ -52,8 +52,8 @@ function Calendar(years) {
         let i = 0;
         this.Months.forEach(m => {
             if (this.Year > 1700 && this.Year < 2100) {
-                m.NewMoon = new Date(selectedYear.new_moons[i]);
-                m.FullMoon = new Date(selectedYear.full_moons[i]);
+                m.NewMoon = new Date(selectedYear.new_moons[i].split("T")[0]);
+                m.FullMoon = new Date(selectedYear.full_moons[i].split("T")[0]);
                 i += 1;
             } else {
                 m.NewMoon = nextNewMoon(date);
