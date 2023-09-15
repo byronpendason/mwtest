@@ -52,8 +52,8 @@ function Calendar(years) {
         let x = 0;
         this.Months.forEach(m => {
             if (this.Year > 1700 && this.Year < 2100) {
-                m.NewMoon = selectedYear.newMoons[x];
-                m.FullMoon = selectedYear.fullMoons[x];
+                m.NewMoon = selectedYear.new_moons[x];
+                m.FullMoon = selectedYear.full_moons[x];
                 x += 1;
             } else {
                 m.NewMoon = nextNewMoon(date);
