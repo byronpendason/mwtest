@@ -52,10 +52,10 @@ function Calendar(years) {
         let i = 0;
         this.Months.forEach(m => {
             if (this.Year > 1700 && this.Year < 2100) {
-                m.NewMoon = new Date(selectedYear.new_moons[i].split("T")[0]);
-                m.newMoon.setDate(m.newMoon.getDate() + 1);
-                m.FullMoon = new Date(selectedYear.full_moons[i].split("T")[0]);
-                m.newMoon.setDate(m.newMoon.getDate() + 1);
+                m.NewMoon = new Date(selectedYear.newMoons[i]);
+                m.newMoon.setHours(0, 0, 0);
+                m.FullMoon = new Date(selectedYear.full_moons[i]);
+                m.fullMoon.setHours(0, 0, 0);
                 i += 1;
             } else {
                 m.NewMoon = nextNewMoon(date);
@@ -202,7 +202,7 @@ function Calendar(years) {
     }
 
     function addDays(theDate, days) {
-        return new Date(theDate.getTime() + days*24*60*60*1000);
+        return new Date(theDate.getDate() + days);
 
     // This was a royal pain in the tookus to get working correctly with the month array
     // It probably isn't perfect since I didn't *really* know what some of the math was for.
