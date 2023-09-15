@@ -53,6 +53,7 @@ function Calendar(years) {
         this.Months.forEach(m => {
             if (this.Year > 1700 && this.Year < 2100) {
                 m.NewMoon = new Date(selectedYear.new_moons[i].split("T")[0]);
+                m.newMoon = addDays(m.newMoon, 1);
                 m.FullMoon = new Date(selectedYear.full_moons[i].split("T")[0]);
                 i += 1;
             } else {
@@ -208,7 +209,7 @@ function Calendar(years) {
     // This was a royal pain in the tookus to get working correctly with the month array
     // It probably isn't perfect since I didn't *really* know what some of the math was for.
     function getASDate(d) {
-        
+        d.setHours(0, 0, 0);
         var month;
 
         for(let i = 0; i < this.Months.length; i++) {
