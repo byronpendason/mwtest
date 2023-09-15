@@ -51,7 +51,7 @@
         }).then(function(yearsData) {
             calendar = Calendar(yearsData); // Create Calendar object
 
-            getCalendar(2023); // Initialize the calendar. Probably should have code to get the current year.
+            getCalendar(new Date().getFullYear()); // Initialize the calendar. 
             $('#lbl-today').html(calendar.ConvertDate(new Date()));
 
             $('#btn-get-calendar').click(btnGetCalendar_click);
