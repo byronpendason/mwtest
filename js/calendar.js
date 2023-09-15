@@ -23,12 +23,12 @@ function Calendar(years) {
 
         // Everything in these initial array declarations could come from a json file if you wanted
 
-        var date = new Date(_years.find((yr) => yr.year == this.Year-1).winter_solstice);
-        var selectedYear = _years.find((yr) => yr.year == this.Year);
+        var date = _years.find((yr) => yr.Year == this.Year-1).WinterSolstice;
+        var selectedYear = _years.find((yr) => yr.Year == this.Year);
 
-        this.WinterSolstice = new Date(selectedYear.winter_solstice);
-        this.SummerSolstice = new Date(selectedYear.summer_solstice);
-        this.IsLeapYear = selectedYear.is_leap_year;
+        this.WinterSolstice = new Date(selectedYear.WinterSolstice);
+        this.SummerSolstice = new Date(selectedYear.SummerSolstice);
+        this.IsLeapYear = selectedYear.IsLeapYear;
 
         var tempMonths = new Array();
         
@@ -52,8 +52,8 @@ function Calendar(years) {
         let i = 0;
         this.Months.forEach(m => {
             if (this.Year > 1700 && this.Year < 2100) {
-                m.NewMoon = new Date(selectedYear.new_moons[i]);
-                m.FullMoon = new Date(selectedYear.full_moons[i]);
+                m.NewMoon = new Date(selectedYear.NewMoons[i]);
+                m.FullMoon = new Date(selectedYear.FullMoons[i]);
                 i += 1;
             } else {
                 m.NewMoon = nextNewMoon(date);
@@ -209,6 +209,7 @@ function Calendar(years) {
     // It probably isn't perfect since I didn't *really* know what some of the math was for.
     function getASDate(d) {
         
+        var d = new Date(d); // make sure this is a date, I guess?
         var month;
 
         for(let i = 0; i < this.Months.length; i++) {
@@ -224,7 +225,7 @@ function Calendar(years) {
             } 
         }
 
-        var newYear = new Date(_years.find(yr => yr.year == this.Year+1).new_moons[0]);
+        var newYear = _years.find(yr => yr.Year == this.Year+1).NewMoons[0];
         var dateStr;
 
         if(d >= newYear) {
@@ -246,13 +247,8 @@ function Calendar(years) {
 
       }
 
-      // Much of this nonsense could be avoided if all the times were normalized to midnight in the year data input
       function dateIsBetween(date, rangeStart, rangeEnd) {
-        var date1 = new Date(date.getFullYear(), date.getMonth(), date.getDate());
-        var date2 = new Date(rangeStart.getFullYear(), rangeStart.getMonth(), rangeStart.getDate());    
-        var date3 = new Date(rangeEnd.getFullYear(), rangeEnd.getMonth(), rangeEnd.getDate());   
-
-        return date1 >= date2 && date1 < date3;
+        return date >= rangeStart && date < rangeEnd;
       }
 
       function getOrdinal(n) {

@@ -38,29 +38,24 @@
 
 <script type="text/javascript">
 
-    // Fetch years' data from yaml *cries*
-    var yearsData = new Array(); 
-    
-    {% for yr in site.data.calendar %}
-        var y{{ yr.year }} = {  year: {{ yr.year }}, 
-                                summer_solstice: "{{ yr.midsummer }}", 
-                                winter_solstice: "{{ yr.yule }}", 
-                                new_moons: ["{% for nm in yr.new_moons %}{{ nm }}", "{% endfor %}"], 
-                                full_moons: ["{% for fm in yr.full_moons %}{{ fm }}", "{% endfor %}"], 
-                                is_leap_year: {{ yr.leap }}};
-        y{{ yr.year }}.new_moons.pop();
-        y{{ yr.year }}.full_moons.pop();
-        yearsData.push(y{{ yr.year }});
-    {% endfor %}
-
-    var calendar = Calendar(yearsData); // Create Calendar object
+    var calendar; // Declare out here for the other page disploy methods.
 
     $(document).ready(function(){
-        getCalendar(2023); // Initialize the calendar. Probably should have code to get the current year.
-        $('#lbl-today').html(calendar.ConvertDate(new Date()));
+        // Fetch years' data from yaml *cries*
+        fetch("./js/calendar.json", {
+            mode: "same-origin", // no-cors, *cors, same-origin
+            cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+            credentials: "same-origin"
+        }).then(results => {
+            return results.json();
+        }).then(function(yearsData) {
+            calendar = Calendar(yearsData); // Create Calendar object
 
-        $('#btn-get-calendar').click(btnGetCalendar_click);
-        $('#btn-convert-date').click(btnConvertDate_click);
+            getCalendar(2023); // Initialize the calendar. Probably should have code to get the current year.
+            $('#lbl-today').html(calendar.ConvertDate(new Date()));
+
+            $('#btn-get-calendar').click(btnGetCalendar_click);
+            $('#btn-convert-date').click(btnConvertDate_click);
+        });
     });
-
 </script>

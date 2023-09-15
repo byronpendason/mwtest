@@ -79,29 +79,20 @@
 
       {% if page.layout == "post" %}
       <h1 class="page-title">{{ page.title }}</h1>
-      <h6>Posted {% if page.author %}by {{ page.author }}{% endif %}{% if page.date %} on <span id="date"></span>,{% endif %}{% if page.categories %} in {% for category in page.categories %}<a href="/search#{{ category | slugify}}">{{ category | capitalize }}</a>{% unless forloop.last %}, {% endunless %}{% endfor %}{% endif %}</h6>
-<script type="text/javascript">
-      var d = new Date("{{ page.date }}");
-      var months=["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-      var days=["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-      var yr = d.getFullYear();
-      var he = 0;
-      var ce = "";
-      if (yr == 0) {
-        yr = -1;
-        he = 10000;
-        ce = "1 BCE";
-      } else if (yr < 0) {
-        he = 10001 - Math.abs(yr);
-        ce = String(Math.abs(yr))+" BCE";
-      } else {
-        he = 10000 + yr;
-        ce = String(yr)+" CE";
-      }
-      //var dstr = days[d.getDay()]+", "+months[d.getMonth()]+" "+String(d.getDate())+", "+he+" <a href=\"https://www.minewyrtruman.com/2022/08/30/the-human-era/\">HE</a> ("+ce+")";
-      var dstr = days[d.getDay()]+", "+months[d.getMonth()]+" "+String(d.getDate())+", "+ce;
-      $('#date').html(dstr);
-</script>
+      <span class="post-details">Posted 
+        {% if page.author %}
+            by {{ page.author }}
+        {% endif %}
+        {% if page.date %} 
+            on <span id="date">{{ page.date | date: "%B %-d, %Y" }} CE</span>,
+        {% endif %}
+        {% if page.categories %} 
+            in {% for category in page.categories %}
+                <a class="post-category" href="/search#{{ category | slugify}}">
+                    {{ category | capitalize }}</a>{% unless forloop.last %}, {% endunless %}
+            {% endfor %}
+        {% endif %}</span>
+
       {% endif %}
 
       {{ content }}
