@@ -199,16 +199,14 @@ function Calendar(years) {
         return j;
     }
 
-    function addDays(d, days) {
-        var result = new Date(d);
-        result.setDate(result.getDate() + days);
-        return result;
-      }
+    function addDays(theDate, days) {
+        return new Date(theDate.setDate(theDate.getDate() + days)); // Need the new date here to keep this actually date objects
+    }
 
     // This was a royal pain in the tookus to get working correctly with the month array
     // It probably isn't perfect since I didn't *really* know what some of the math was for.
     function getASDate(d) {
-        
+
         var d = new Date(d); // make sure this is a date, I guess?
         var month;
 
