@@ -202,7 +202,7 @@ function Calendar(years) {
     }
 
     function addDays(theDate, days) {
-        return new Date(theDate.getDate() + days);
+        return theDate.setDate(theDate.getDate() + days);
 
     // This was a royal pain in the tookus to get working correctly with the month array
     // It probably isn't perfect since I didn't *really* know what some of the math was for.
