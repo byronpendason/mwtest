@@ -208,6 +208,7 @@ function Calendar(years) {
     function getASDate(d) {
 
         var d = new Date(d); // make sure this is a date, I guess?
+        d.setHours(0, 0, 0);
         var month;
 
         for(let i = 0; i < this.Months.length; i++) {
