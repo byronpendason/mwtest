@@ -1,0 +1,36 @@
+
+<div class="sidebar">
+    <input type="text" id="search-input" class="search-input" placeholder="Search...">
+    <ul id="results-container" class="pop-up-results"></ul>
+
+<!--    <h2>Categories</h2>
+    <ul id="sidebar-categories"></ul>   -->
+</div>
+
+<!--
+<script type="text/javascript" src="/js/blog-sidebar.js"></script>
+<script>
+    var posts = new Array();
+
+    {% for post in paginator.posts %}
+        {% if post.categories %}
+            posts.push(
+            [
+                {% for category in post.categories %}
+                "{{ category | capitalize }}"{% unless forloop.last %}, {% endunless %}
+                {% endfor %}
+            ]);         
+        {% endif %}
+    {% endfor %}
+
+
+    var sidebar = new Sidebar(posts);
+    var listItems = new Array();
+
+    sidebar.Categories.forEach((cat) => {
+        var li = $('<li>').html(cat.Name + "&nbsp;(" + cat.Count +")");
+        listItems.push(li);
+    }); 
+
+    $('#sidebar-categories').append(listItems);
+</script> -->

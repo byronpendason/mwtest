@@ -1,0 +1,50 @@
+---
+layout: default
+title: blog
+pagination:
+  enabled: true
+  collection: posts
+  permalink: /page/:num/
+  per_page: 5
+  sort_field: date
+  sort_reverse: true
+---
+
+{% include blog-sidebar.html %}
+
+<div id="post-preview-container">
+
+{% for post in paginator.posts %}
+
+{% if post.layout == "post" %}
+
+  {% include post-preview.html %}
+
+{% endif %}
+
+{% endfor %}
+
+{%- if paginator.total_pages > 1 -%}
+<nav>
+  <ul class="pagination pagination-lg justify-content-center">
+    <li class="page-item left">
+        <a class="page-link" href="../index.html">First</a>
+    </li>
+    <li class="page-item left {% unless paginator.previous_page %}disabled{% endunless %}">
+      <a class="page-link" href="{{ paginator.previous_page_path | relative_url }}" tabindex="-1">Newer</a>
+    </li>
+    <li class="page-item center page-num">
+        Page {{ paginator.page }}
+    </li>
+    <li class="page-item right {% unless paginator.next_page %}disabled{% endunless %}">
+        <a class="page-link" href="{{ paginator.next_page_path | relative_url }}">Older</a>
+      </li>    
+    <li class="page-item right">
+        <a class="page-link" href="page{{ paginator.total_pages - 1 }}">Last</a>
+    </li>
+  </ul>
+</nav>
+{%- endif -%}
+
+</div>
+

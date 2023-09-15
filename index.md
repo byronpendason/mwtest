@@ -32,19 +32,13 @@ I am not an expert, nor an academic. I am a blue collar worker with a passion fo
 
 You can follow me on Twitter at [@ByronPendason](https://twitter.com/ByronPendason)!
 
-## Recent Blog Posts
+# Recent Blog Posts
 
 {% for post in site.posts limit:3 %}
 
 {% if post.layout == "post" %}
 
-## [{{ post.title }}]({{ post.url }}) 
-
-<h6>Posted {% if post.author %}by {{ post.author }}{% endif %}{% if post.date %} on {{ post.date | date: "%B %-d, %Y"}}{% endif %}{% if post.categories %} in {% for category in post.categories %}<a href="/search#{{ category | slugify}}">{{ category | capitalize }}</a>{% unless forloop.last %}, {% endunless %}{% endfor %}{% endif %}</h6>
-
-{{ post.excerpt | strip_html | strip_newlines | truncatewords: 50 }}
-
---------
+{% include post-preview.html %}
 
 {% endif %}
 
