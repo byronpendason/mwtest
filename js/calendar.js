@@ -54,7 +54,7 @@ function Calendar(years) {
             if (this.Year > 1700 && this.Year < 2100) {
                 m.NewMoon = selectedYear.newMoons[x];
                 m.FullMoon = selectedYear.fullMoons[x];
-                x++;
+                x += 1;
             } else {
                 m.NewMoon = nextNewMoon(date);
                 date.setTime(date.getTime()+36*1000*60*60);
