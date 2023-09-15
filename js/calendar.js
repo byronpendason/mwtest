@@ -207,8 +207,7 @@ function Calendar(years) {
     // It probably isn't perfect since I didn't *really* know what some of the math was for.
     function getASDate(d) {
 
-        var d = new Date(d); // make sure this is a date, I guess?
-        d.setHours(0, 0, 0);
+        var d = new Date(d.getFullYear(), d.getMonth(), d.getDate());
         var month;
 
         for(let i = 0; i < this.Months.length; i++) {
