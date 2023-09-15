@@ -49,12 +49,12 @@ function Calendar(years) {
         this.Months = tempMonths;
 
         // Copied this for now, but why bother if you've already loaded the moons in the data file?
-        let x = 0;
+        let i = 0;
         this.Months.forEach(m => {
             if (this.Year > 1700 && this.Year < 2100) {
-                m.NewMoon = new Date(selectedYear.new_moons[x]);
-                m.FullMoon = new Date(selectedYear.full_moons[x]);
-                x += 1;
+                m.NewMoon = new Date(selectedYear.new_moons[i]);
+                m.FullMoon = new Date(selectedYear.full_moons[i]);
+                i += 1;
             } else {
                 m.NewMoon = nextNewMoon(date);
                 date.setTime(date.getTime()+36*1000*60*60);
