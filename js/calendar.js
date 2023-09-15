@@ -49,10 +49,17 @@ function Calendar(years) {
         this.Months = tempMonths;
 
         // Copied this for now, but why bother if you've already loaded the moons in the data file?
+        int x = 0;
         this.Months.forEach(m => {
-            m.NewMoon = nextNewMoon(date);
-            date.setTime(date.getTime()+36*1000*60*60);
-            m.FullMoon = nextFullMoon(date);
+            if (this.Year > 1700 && this.Year < 2100) {
+                m.NewMoon = selectedYear.newMoons[x];
+                m.FullMoon = selectedYear.fullMoons[x];
+                x++;
+            } else {
+                m.NewMoon = nextNewMoon(date);
+                date.setTime(date.getTime()+36*1000*60*60);
+                m.FullMoon = nextFullMoon(date);
+            }
         });        
 
         // I added a "type" concept to the holidays so you have the flexibility to group them however you please. 
