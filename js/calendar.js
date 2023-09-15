@@ -49,7 +49,7 @@ function Calendar(years) {
         this.Months = tempMonths;
 
         // Copied this for now, but why bother if you've already loaded the moons in the data file?
-        int x = 0;
+        let x = 0;
         this.Months.forEach(m => {
             if (this.Year > 1700 && this.Year < 2100) {
                 m.NewMoon = selectedYear.newMoons[x];
