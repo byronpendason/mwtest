@@ -200,11 +200,8 @@ function Calendar(years) {
         return j;
     }
 
-    function addDays(d, days) {
-        var result = new Date(d);
-        result.setDate(result.getDate() + days);
-        return result;
-      }
+    function addDays(theDate, days) {
+        return new Date(theDate.getTime() + days*24*60*60*1000);
 
     // This was a royal pain in the tookus to get working correctly with the month array
     // It probably isn't perfect since I didn't *really* know what some of the math was for.
