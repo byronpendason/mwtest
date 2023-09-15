@@ -26,8 +26,8 @@ function Calendar(years) {
         var date = new Date(_years.find((yr) => yr.year == this.Year-1).winter_solstice);
         var selectedYear = _years.find((yr) => yr.year == this.Year);
 
-        this.WinterSolstice = new Date(selectedYear.winter_solstice.split(" ")[0]);
-        this.SummerSolstice = new Date(selectedYear.summer_solstice.split(" ")[0]);
+        this.WinterSolstice = new Date(selectedYear.winter_solstice);
+        this.SummerSolstice = new Date(selectedYear.summer_solstice);
         this.IsLeapYear = selectedYear.is_leap_year;
 
         var tempMonths = new Array();
