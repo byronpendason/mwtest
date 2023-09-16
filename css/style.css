@@ -66,6 +66,7 @@ body {
 .nav-item:hover .dropdown {
   display: block;
   position: absolute;
+  z-index: 3;
 }
 
 .dropdown a {
@@ -119,6 +120,11 @@ body {
   background-color: #F6EDDC;
   color:black;
   overflow: hidden;
+}
+
+#content a {
+  color: #370303;
+  text-decoration: underline;
 }
 
 h1, h2, h3, h4  {
@@ -262,6 +268,15 @@ label {
   text-align: center;
   margin: 0;
   padding: 10px;
+  font-size: small;
+}
+
+#footer a {
+  color:#C8B5A2;
+}
+
+#footer p {
+  margin: 0px;
 }
 
 #post-preview-container {
