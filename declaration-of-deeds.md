@@ -27,4 +27,10 @@ I am choosing to define the inclusivity that Mīne Wyrtruman stands for by adopt
 > 
 > We are charged in the Havamal to speak out against evil when we see evil; bigotry and discrimination based on the chances of our birth is just such an evil. We heathens, pagans, followers of the old ways; we join our voices in unison with this our Declaration of Deeds, that we may declare that the chances of our birth that are beyond our control have no bearing on our ability to participate in this religion nor to lead full spiritual lives, but rather that in all cases it is our actions and deeds that truly matter.
 
-If you agree with these principles, that Heathenry has no basis for discrimination on the basis of race, ethnicity, origin, gender, sex, or sexual orientation, you can sign Beofeld's statement at <a href="https://declarationofdeeds.com/">https://declarationofdeeds.com/</a>.
+If you agree with these principles, that Heathenry has no basis for discrimination on the basis of race, ethnicity, origin, gender, sex, or sexual orientation, you can sign Beofeld's statement, too.
+
+
+<a href="https://declarationofdeeds.com/" target="_blank" id="dod-button">
+    Sign<br />
+    <img src="{{ site.baseurl }}/img/dod-text.png" />
+</a>.

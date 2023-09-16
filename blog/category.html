@@ -32,7 +32,7 @@ title: Category Search
                     if(lowercase.includes(searchTerm)) {
                         var postPreview = $('<div class="post-preview">');
                         var date = new Date(post.date);
-                        var postMetadata = $('<span>').html("Posted by " + post.author + "on " + date.toDateString() + " CE in");
+                        var postMetadata = $('<span class="post-details">').html("Posted by " + post.author + "on " + date.toDateString() + " CE in");
                         var categories = post.category.split(",");
                         categories.forEach(c => {
                             var catTrimmed = c.trim();
@@ -41,9 +41,9 @@ title: Category Search
                             postMetadata.append($('<a>').html(catName).attr("href", "?" + catTrimmed));
                         });
                         
-                        postPreview.append($("<h2>").append($('<a>').html(post.title).attr("href", post.url)));
+                        postPreview.append($('<h2 class="post-preview-title">').append($('<a>').html(post.title).attr("href", post.url)));
                         postPreview.append(postMetadata);
-                        postPreview.append($('<p>').html(post.excerpt));
+                        postPreview.append($('<p>').html(post.excerpt.replace("&amp;#8617", "&#8617"))); // This replace is stupid, but the only way I could get around it
                         postPreviews.push(postPreview);
                     }
                 }

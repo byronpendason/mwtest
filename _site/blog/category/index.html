@@ -4,8 +4,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.googleapis.com"> 
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
-<link href="https://fonts.googleapis.com/css2?family=Almendra+SC&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
+    <link href="https://fonts.googleapis.com/css2?family=Almendra+SC&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Almendra+SC&family=Baskervville&family=Milonga&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/mwtest/css/style.css">
     
     <!-- HTML Meta Tags -->
@@ -60,13 +61,13 @@
             
             <div class="nav-item">
               
-              <a href="/">Home</a>
+              <a href="/mwtest/">Home</a>
               
             </div>            
               
             <div class="nav-item">
               
-              <a href="/blog">Blog</a>
+              <a href="/mwtest/blog">Blog</a>
               
             </div>            
               
@@ -75,11 +76,11 @@
               <a>Fyrnsidu Newcomer Resources</a>
               <div class="dropdown">
                              
-                  <a href="/glossary">Glossary & Beginner Resources</a>
+                  <a href="/mwtest/glossary">Glossary & Beginner Resources</a>
                              
-                  <a href="/fyrnsidu_intro/">Introduction to Fyrnsidu</a>
+                  <a href="/mwtest/fyrnsidu_intro/">Introduction to Fyrnsidu</a>
                              
-                  <a href="/ritual_of_thanksgiving">A Ritual of Thanksgiving</a>
+                  <a href="/mwtest/ritual_of_thanksgiving">A Ritual of Thanksgiving</a>
                 
               </div>
               
@@ -87,13 +88,13 @@
               
             <div class="nav-item">
               
-              <a href="/anglosaxoncalendar">Calendar Reconstruction</a>
+              <a href="/mwtest/anglosaxoncalendar">Calendar Reconstruction</a>
               
             </div>            
               
             <div class="nav-item">
               
-              <a href="/declaration-of-deeds">Declaration of Deeds</a>
+              <a href="/mwtest/declaration-of-deeds">Declaration of Deeds</a>
               
             </div>            
               
@@ -102,9 +103,9 @@
               <a>Contact</a>
               <div class="dropdown">
                              
-                  <a href="/contact">Contact Byron</a>
+                  <a href="/mwtest/contact">Contact Byron</a>
                              
-                  <a href="/requests">Blog Post Requests</a>
+                  <a href="/mwtest/requests">Blog Post Requests</a>
                 
               </div>
               
@@ -115,9 +116,9 @@
               <a>Fun Stuff</a>
               <div class="dropdown">
                              
-                  <a href="/runetyper">RuneTyper</a>
+                  <a href="/mwtest/runetyper">RuneTyper</a>
                              
-                  <a href="/games">Games</a>
+                  <a href="/mwtest/games">Games</a>
                 
               </div>
               
@@ -240,7 +241,7 @@
                     if(lowercase.includes(searchTerm)) {
                         var postPreview = $('<div class="post-preview">');
                         var date = new Date(post.date);
-                        var postMetadata = $('<span>').html("Posted by " + post.author + "on " + date.toDateString() + " CE in");
+                        var postMetadata = $('<span class="post-details">').html("Posted by " + post.author + "on " + date.toDateString() + " CE in");
                         var categories = post.category.split(",");
                         categories.forEach(c => {
                             var catTrimmed = c.trim();
@@ -249,9 +250,9 @@
                             postMetadata.append($('<a>').html(catName).attr("href", "?" + catTrimmed));
                         });
                         
-                        postPreview.append($("<h2>").append($('<a>').html(post.title).attr("href", post.url)));
+                        postPreview.append($('<h2 class="post-preview-title">').append($('<a>').html(post.title).attr("href", post.url)));
                         postPreview.append(postMetadata);
-                        postPreview.append($('<p>').html(post.excerpt));
+                        postPreview.append($('<p>').html(post.excerpt.replace("&amp;#8617", "&#8617"))); // This replace is stupid, but the only way I could get around it
                         postPreviews.push(postPreview);
                     }
                 }
