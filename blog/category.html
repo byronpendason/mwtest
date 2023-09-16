@@ -20,12 +20,11 @@ title: Category Search
       searchResultTemplate: template  
     });
 
-    document.getElementById('search-input').value = getUrlVars();
-
-    var event = document.createEvent('HTMLEvents');
-    event.initEvent('change', false, true); // onchange event
-    document.getElementById('search-input').dispatchEvent(event);
-
+    $('#search-input').val(getUrlVars())
+    $('#search-input').keydown();
+    $('#search-input').keypress();
+    $('#search-input').keyup();
+    $('#search-input').blur();
   });
   
     function getUrlVars()
