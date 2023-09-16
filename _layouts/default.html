@@ -142,14 +142,6 @@
     <!-- Grab search-script.js -->
     <script src="/js/search-script.js" type="text/javascript"></script>
     <!-- Configuration -->
-    <script>
-    SimpleJekyllSearch({
-      searchInput: document.getElementById('search-input'),
-      resultsContainer: document.getElementById('results-container'),
-      json: '/search.json',
-      searchResultTemplate: '<li><a href="{url}">{title}</a><br></li>'
-    })
-    </script>
     {% endunless %}
 {% unless page.title == "Test Page" %}{% include commerce-ads.html %}{% endunless %}
   </body>
