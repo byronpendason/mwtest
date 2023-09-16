@@ -51,7 +51,10 @@
   </head>
   <body{% if page.brython %} onload="brython({% if page.debug %}{debug:1}{% endif %})"{% endif %}>
       <div id="header">
-      <h1 class="title"><a href="/">{{ site.title }}</a></h1>
+      <h1 class="title">
+        <a href="/">{{ site.title }}</a>
+      </h1>
+      <hr />
       <p class="subtitle">{{ site.byline }}</p>
     <nav>
       <div class="nav-list">

@@ -7,6 +7,8 @@ permalink: /
 
 # Welcome to Mīne Wyrtruman!
 
+{%include front-image.html %}
+
 This website is dedicated to ***Fyrnsidu***, a modern religion based upon the religion of the
 pre-Christian Germanic tribes that settled in Britain in the fifth century of the common era.
 These people, commonly known as the Anglo-Saxons, brought with them a religion that is both
