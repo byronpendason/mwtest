@@ -21,6 +21,7 @@ title: Category Search
     });
 
     document.getElementById('search-input').value = getUrlVars();
+    document.getElementById('search-input').fireEvent('onchange');
 
   });
   
