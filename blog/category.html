@@ -23,12 +23,20 @@ title: Category Search
                 if(post.category !== undefined) {
                     if(post.category.includes(searchTerm)) {
                         var postPreview = $('<div class="post-preview">');
-                        postPreview.append($("<h2>").html(post.title));
+                        var postMetadata = $('<span>').html("Posted by " + post.author + "on " + post.date + "in");
+                        var categories = post.category.split(",");
+                        categories.forEach(c => {
+                            postMetadata.append('<a>').html(c).attr("href", "category?" + c);
+                        });
+                        
+                        postPreview.append($("<h2>").append($('<a>').html(post.title).attr("href", post.url)));
+                        postPreview.append(postMetadata);
                         postPreview.append($('<p>').html(post.excerpt));
                         postPreviews.push(postPreview);
-                    }                    
-                };
+                    }
+                }
             });
+
             $('#post-preview-container').append(postPreviews);
         });
   });
