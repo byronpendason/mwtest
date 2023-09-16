@@ -4,27 +4,26 @@ title: Category Search
 ---
 
 <div id="post-preview-container"></div>
-<input type="text" id="search-input" style="display: none;" />
-
-<script src="https://www.minewyrtruman.com/mwtest/js/search-script.js" type="text/javascript"></script>
 <script type="text/javascript">
   
   $(document).ready(function(){
 
     var template = '<div class="post-preview"><h2 class="post-preview-title"><a href="{url}">{title}</a></h2></div>';
+    var searchTerm = getUrlVars()[0];
 
-    SimpleJekyllSearch({
-      searchInput: document.getElementById('search-input'),
-      resultsContainer: document.getElementById('post-preview-container'),
-      json: 'https://www.minewyrtruman.com/search.json',
-      searchResultTemplate: template  
-    });
-
-    $('#search-input').val(getUrlVars())
-    $('#search-input').keydown();
-    $('#search-input').keypress();
-    $('#search-input').keyup();
-    $('#search-input').blur();
+    fetch("https://www.minewyrtruman.com/search.json", {
+            mode: "same-origin", // no-cors, *cors, same-origin
+            cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+            credentials: "same-origin"
+        }).then(results => {
+            return results.json();
+        }).then(function(posts) {
+            foreach(post in posts) {
+                if(post.description.contains(searchTerm)) {
+                    $('#post-preview-container').append(post.title);
+                }
+            }
+        });
   });
   
     function getUrlVars()
