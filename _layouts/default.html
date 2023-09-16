@@ -38,9 +38,8 @@
     <meta name="twitter:description" content="{% if page.excerpt %}{{ page.excerpt | strip_html | strip_newlines | truncatewords: 25}}{% else %}{{ site.description }}{% endif %}">
     <meta name="twitter:image" content="https://byronpendason.github.io/media/penda.jpg">
 
-    <!-- Meta Tags Generated via http://heymeta.com -->
-    <script type="text/javascript" src="/js/jquery-3.6.1.min.js"></script>
-
+    <!-- Replacing with google hosted temporarily because I'm tired of trying to fix the reference every 5 minutes locally -->>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 {% if page.brython %}<script src="/js/brython.js">
 </script>
 <script src="/js/brython_stdlib.js">
@@ -141,16 +140,8 @@
     <script id="dsq-count-scr" src="//mine-wyrtruman.disqus.com/count.js" async></script>
     {% unless page.title == "Search" %}
     <!-- Grab search-script.js -->
-    <script src="/js/search-script.js" type="text/javascript"></script>
-    <!-- Configuration -->
-    <script>
-    SimpleJekyllSearch({
-      searchInput: document.getElementById('search-input'),
-      resultsContainer: document.getElementById('results-container'),
-      json: '/search.json',
-      searchResultTemplate: '<li><a href="{url}">{title}</a><br></li>'
-    })
-    </script>
+    <script src="http://127.0.0.1:4000/mwtest/js/search-script.js" type="text/javascript"></script>
+
     {% endunless %}
 {% unless page.title == "Test Page" %}{% include commerce-ads.html %}{% endunless %}
   </body>

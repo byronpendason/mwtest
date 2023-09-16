@@ -3,8 +3,13 @@
     <input type="text" id="search-input" class="search-input" placeholder="Search...">
     <ul id="results-container" class="pop-up-results"></ul>
 
-<!--    <h2>Categories</h2>
-    <ul id="sidebar-categories"></ul>   -->
+    <h2>Categories</h2>
+    <ul id="sidebar-categories">
+        {% for category in site.categories %}
+            {% capture category_name %}{{ category | first }}{%endcapture%}
+            <li>{{ category_name | capitalize }}</li>
+        {% endfor %}
+    </ul>
 </div>
 
 <!--
