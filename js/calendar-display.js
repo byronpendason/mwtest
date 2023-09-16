@@ -10,7 +10,7 @@ function getCalendar(year) {
 }
 
 function btnConvertDate_click() {
-    var date = new Date(document.getElementById('txt-date-to-convert').value);
+/*    var date = new Date(document.getElementById('txt-date-to-convert').value);
 
     date = new Date(
         date.getUTCFullYear(),
@@ -20,7 +20,9 @@ function btnConvertDate_click() {
         date.getUTCMinutes(),
         date.getUTCSeconds(),
         date.getUTCMilliseconds());
-    selectedDate = new Date(date.toString());
+    selectedDate = new Date(date.toString());*/
+    var dateStr = $('#txt-date-to-convert').val();
+    var selectedDate = new Date(dateStr.substring(0,4), parseInt(dateStr.substring(5,7)) -1, dateStr.substring(8,10));
     var dateYear = selectedDate.getFullYear();
     if(dateYear != calendar.Year) {
         getCalendar(dateYear);
