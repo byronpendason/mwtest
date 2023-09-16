@@ -28,6 +28,7 @@ title: Category Search
                         var categories = post.category.split(",");
                         categories.forEach(c => {
                             var catTrimmed = c.trim();
+                            var catName = c.charAt(0).toUpperCase() + c.slice(1);
                             postMetadata.append("&nbsp;");
                             postMetadata.append($('<a>').html(catTrimmed).attr("href", "?" + catTrimmed));
                         });
