@@ -401,11 +401,16 @@ label {
   }
 
   #post-preview-container {
+    max-width: 100%;
     width: 100%;
   }
 
   .pop-up-results {
     width: 100%;
+  }
+
+  .page-num {
+    width: auto;
   }
 }
 
