@@ -4,12 +4,13 @@ title: Category Search
 ---
 
 <div id="post-preview-container"></div>
+<input type="hidden" id="search-input" />
 
-<script src="https://www.minewyrtruman.com/js/search-script.js" type="text/javascript"></script>
+<script src="https://www.minewyrtruman.com/mwtest/js/search-script.js" type="text/javascript"></script>
 <script type="text/javascript">
   
   $(document).ready(function(){
-    var queryStr = getUrlVars();
+    document.getElementById.value = getUrlVars();
 
     var template = '<div class="post-preview">';
     template += '<h2 class="post-preview-title"><a href="{url}">{title}</a></h2>';
@@ -20,7 +21,7 @@ title: Category Search
     template += '{excerpt}</p></div>'; */
 
     SimpleJekyllSearch({
-      searchInput: queryStr[0],
+      searchInput: document.getElementById('search-input'),
       resultsContainer: document.getElementById('post-preview-container'),
       json: 'https://www.minewyrtruman.com/search.json',
       searchResultTemplate: template     
