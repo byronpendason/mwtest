@@ -18,11 +18,11 @@ title: Category Search
         }).then(results => {
             return results.json();
         }).then(function(posts) {
-            foreach(post in posts) {
+            posts.foreach(post => {
                 if(post.description.contains(searchTerm)) {
                     $('#post-preview-container').append(post.title);
                 }
-            }
+            });
         });
   });
   
