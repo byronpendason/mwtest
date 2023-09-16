@@ -20,7 +20,7 @@ title: Category Search
         }).then(function(posts) {
             var postPreviews = new Array();
             posts.forEach(post => {
-                if(post.description !== undefined) {
+                if(post.category !== undefined) {
                     if(post.category.includes(searchTerm)) {
                         var postPreview = $('<div class="post-preview">');
                         postPreview.append($("<h2>").html(post.title));
