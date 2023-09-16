@@ -452,9 +452,6 @@ label {
 .center { text-align: center;}
 
 .front-image {
-  float: right; 
-  margin-left: 25px; 
-  width: 35%;
   color:#4D0707;
   font-size: small;
 }
@@ -468,10 +465,20 @@ label {
   box-shadow: 5px 5px 15px #C8B5A2;
 }
 
+.front-image.left {
+  float: left;
+  margin-right: 25px;
+}
+
+.front-image.right {
+  float: right;
+  margin-left: 25px;
+}
+
 @media screen and (max-width: 800px) {
-  .front-image {
+  .front-image, .front-image.right, .front-image.left {
     float: none;
-    width: 100%;
+    width: 100% !important;
     margin: 10px;
   }
 
