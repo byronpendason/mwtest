@@ -129,15 +129,101 @@
 
       
 
-      <div id="post-preview-container"></div>
+      <h1 class="page-title"></h1>
+
+<a href="/mwtest/blog" class="back-link">Back to Blog</a>
+
+
+<div class="sidebar">
+    <input type="text" id="search-input" class="search-input" placeholder="Search...">
+    <ul id="results-container" class="pop-up-results"></ul>
+
+    <h2>Categories</h2>
+    <ul id="sidebar-categories">
+        
+            
+            <li><a href="/mwtest/blog/category?heathen basics">Heathen basics (18)</a></li>
+        
+            
+            <li><a href="/mwtest/blog/category?heathen worldview">Heathen worldview (29)</a></li>
+        
+            
+            <li><a href="/mwtest/blog/category?heathen worship">Heathen worship (22)</a></li>
+        
+            
+            <li><a href="/mwtest/blog/category?afterlife">Afterlife (3)</a></li>
+        
+            
+            <li><a href="/mwtest/blog/category?politics">Politics (5)</a></li>
+        
+            
+            <li><a href="/mwtest/blog/category?Heathenry">Heathenry (41)</a></li>
+        
+            
+            <li><a href="/mwtest/blog/category?reconstruction">Reconstruction (32)</a></li>
+        
+            
+            <li><a href="/mwtest/blog/category?anglo-saxon calendar">Anglo-saxon calendar (7)</a></li>
+        
+            
+            <li><a href="/mwtest/blog/category?updates">Updates (15)</a></li>
+        
+            
+            <li><a href="/mwtest/blog/category?runes">Runes (8)</a></li>
+        
+            
+            <li><a href="/mwtest/blog/category?lgbt">Lgbt (1)</a></li>
+        
+            
+            <li><a href="/mwtest/blog/category?myths">Myths (6)</a></li>
+        
+            
+            <li><a href="/mwtest/blog/category?cosmology">Cosmology (8)</a></li>
+        
+            
+            <li><a href="/mwtest/blog/category?tech">Tech (3)</a></li>
+        
+            
+            <li><a href="/mwtest/blog/category?rants">Rants (2)</a></li>
+        
+            
+            <li><a href="/mwtest/blog/category?philosophical musings">Philosophical musings (5)</a></li>
+        
+            
+            <li><a href="/mwtest/blog/category?stoicism">Stoicism (4)</a></li>
+        
+    </ul>
+</div>
+
+<!--
+<script type="text/javascript" src="/js/blog-sidebar.js"></script>
+<script>
+    var posts = new Array();
+
+    
+
+
+    var sidebar = new Sidebar(posts);
+    var listItems = new Array();
+
+    sidebar.Categories.forEach((cat) => {
+        var li = $('<li>').html(cat.Name + "&nbsp;(" + cat.Count +")");
+        listItems.push(li);
+    }); 
+
+    $('#sidebar-categories').append(listItems);
+</script> -->
+<div id="post-preview-container"></div>
+
 <script type="text/javascript">
   
   $(document).ready(function(){
 
     var template = '<div class="post-preview"><h2 class="post-preview-title"><a href="{url}">{title}</a></h2></div>';
     var searchTerm = getUrlVars()[0].replace("%20", " "); // since I can't slugify this will have to do
+    $('.page-title').html("Posts in " + searchTerm);
 
-    fetch("https://www.minewyrtruman.com/mwtest/search.json", {
+    fetch("/mwtest/search.json", {
             mode: "same-origin", // no-cors, *cors, same-origin
             cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
             credentials: "same-origin"
@@ -150,12 +236,14 @@
                     var lowercase = post.category.toLowerCase(); // to lower case to normalize the search
                     if(lowercase.includes(searchTerm)) {
                         var postPreview = $('<div class="post-preview">');
-                        var postMetadata = $('<span>').html("Posted by " + post.author + "on " + post.date + "in");
+                        var date = new Date(post.date);
+                        var postMetadata = $('<span>').html("Posted by " + post.author + "on " + date.toDateString() + " CE in");
                         var categories = post.category.split(",");
                         categories.forEach(c => {
                             var catTrimmed = c.trim();
+                            var catName = catTrimmed.charAt(0).toUpperCase() + catTrimmed.slice(1);
                             postMetadata.append("&nbsp;");
-                            postMetadata.append($('<a>').html(catTrimmed).attr("href", "?" + catTrimmed));
+                            postMetadata.append($('<a>').html(catName).attr("href", "?" + catTrimmed));
                         });
                         
                         postPreview.append($("<h2>").append($('<a>').html(post.title).attr("href", post.url)));

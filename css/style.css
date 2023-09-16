@@ -281,7 +281,8 @@ label {
 
 #post-preview-container {
   float: left;
-  width: 80%;
+  min-width: 50%;
+  max-width: 75%;
 }
 
 .post-preview-title {
@@ -350,6 +351,11 @@ label {
   color:#370303;
   z-index: 2;
   position: relative;
+  overflow: hidden;
+}
+
+#sidebar-categories li a {
+  text-decoration: none;
 }
 
 #sidebar-categories li:hover{
@@ -401,6 +407,11 @@ label {
   .pop-up-results {
     width: 100%;
   }
+}
+
+.back-link {
+  padding-bottom: 25px;
+  display: block;
 }
 
 .left { text-align: left; }

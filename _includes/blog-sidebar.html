@@ -7,7 +7,7 @@
     <ul id="sidebar-categories">
         {% for category in site.categories %}
             {% capture category_name %}{{ category | first }}{%endcapture%}
-            <li>{{ category_name | capitalize }}</li>
+            <li><a href="{{ site.baseurl }}/blog/category?{{ category_name }}">{{ category_name | capitalize }} ({{ site.categories[category_name] | size }})</a></li>
         {% endfor %}
     </ul>
 </div>
