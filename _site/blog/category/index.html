@@ -146,7 +146,7 @@
         }).then(function(posts) {
             posts.forEach(post => {
                 if(post.description !== undefined) {
-                    if(post.description.contains(searchTerm)) {
+                    if(post.description.includes(searchTerm)) {
                         $('#post-preview-container').append(post.title);
                     }                    
                 };
