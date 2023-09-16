@@ -144,7 +144,7 @@
         }).then(results => {
             return results.json();
         }).then(function(posts) {
-            posts.foreach(post => {
+            posts.forEach(post => {
                 if(post.description !== undefined) {
                     if(post.description.contains(searchTerm)) {
                         $('#post-preview-container').append(post.title);
