@@ -138,19 +138,13 @@
   $(document).ready(function(){
     document.getElementById.value = getUrlVars();
 
-    var template = '<div class="post-preview">';
-    template += '<h2 class="post-preview-title"><a href="{url}">{title}</a></h2>';
-   /* template += '<span class="post-details">Posted {author}';
-    template += ' on <span id="date">{date} CE</span>,';
-    template += ' in {categories}';
-    template += '<a class="post-category" href="/category?{category}">{categorycapitalize}</a>';
-    template += '{excerpt}</p></div>'; */
+    var template = '<div class="post-preview"><h2 class="post-preview-title"><a href="{url}">{title}</a></h2></div>';
 
     SimpleJekyllSearch({
       searchInput: document.getElementById('search-input'),
       resultsContainer: document.getElementById('post-preview-container'),
       json: 'https://www.minewyrtruman.com/search.json',
-      searchResultTemplate: template     
+      searchResultTemplate: '<div class="post-preview"><h2 class="post-preview-title"><a href="{url}">{title}</a></h2></div>'     
     });
 
   });
