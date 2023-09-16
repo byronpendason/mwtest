@@ -19,7 +19,7 @@ sitemap:
       "url"      : "{{ site.url }}{{ post.url }}",
       "date"     : "{{ post.date | date_to_string }}",
       "category" : "{{ post.categories | join: ', '}}",
-      "excerpt" : " {{ post.excerpt | strip_html | strip_newlines | truncatewords: 100 }}",
+      "excerpt" : " {{ post.excerpt | strip_html | strip_newlines | escape | truncatewords: 100 }}",
       "description" : "{{ post.categories | array_to_sentence_string | strip_html | strip_newlines | escape }} {{ post.content | strip_html | strip_newlines | truncatewords:50 | escape }}"
       } {% unless forloop.last %},{% endunless %}
   {% endfor %}
