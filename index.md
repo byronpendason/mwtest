@@ -14,7 +14,7 @@ pre-Christian Germanic tribes that settled in Britain in the fifth century of th
 These people, commonly known as the Anglo-Saxons, brought with them a religion that is both
 similar to, yet distinct from, the religion of the pre-Christian Nordic peoples. Fyrnsidu is a
 religion based upon the worship of the Anglo-Saxon gods, one's ancestors, and the wights (spirits)
-of the land around us and in our homes. If you're curious about Fyrnsidu, check out my slideshow [Introduction to Fyrnsidu](/fyrnsidu_intro/). The best resource to learn more about Fyrnsidu is [Fyrnsidu.faith](https://Fyrnsidu.faith).
+of the land around us and in our homes. If you're curious about Fyrnsidu, check out my slideshow [Introduction to Fyrnsidu](/fyrnsidu_intro/). The best resource to learn more about Fyrnsidu is <a href="https://Fyrnsidu.faith" target="_blank">Fyrnsidu.faith</a>.
 
 ## About the Website
 
@@ -32,7 +32,7 @@ I am an Anglo-Saxon Heathen man in my early thirties living in the Midwestern Un
 
 I am not an expert, nor an academic. I am a blue collar worker with a passion for research and access to the internet. All my information about Fyrnsidu has been gathered from my own research and from other Heathens. Please do not take anything on this website as "the true and only way" to practice Fyrnsidu. This religion is very non-dogmatic and personal for that. If you like any ideas that I present on this website, feel free to adopt them. If you don't agree with something, feel free to not adopt it.
 
-You can follow me on Mastodon at [@ByronPendason](https://im-in.space/@ByronPendason)!
+You can follow me on Mastodon at <a href="https://im-in.space/@ByronPendason" target="_blank">@ByronPendason</a>!
 
 # Recent Blog Posts
 
