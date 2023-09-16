@@ -21,13 +21,15 @@ title: Category Search
             var postPreviews = new Array();
             posts.forEach(post => {
                 if(post.category !== undefined) {
-                    if(post.category.includes(searchTerm)) {
+                    var lowercase = post.category.toLowerCase(); // to lower case to normalize the search
+                    if(lowercase.includes(searchTerm)) {
                         var postPreview = $('<div class="post-preview">');
                         var postMetadata = $('<span>').html("Posted by " + post.author + "on " + post.date + "in");
                         var categories = post.category.split(",");
                         categories.forEach(c => {
+                            var catTrimmed = c.trim();
                             postMetadata.append("&nbsp;");
-                            postMetadata.append($('<a>').html(c).attr("href", "?" + c));
+                            postMetadata.append($('<a>').html(catTrimmed).attr("href", "?" + catTrimmed));
                         });
                         
                         postPreview.append($("<h2>").append($('<a>').html(post.title).attr("href", post.url)));
