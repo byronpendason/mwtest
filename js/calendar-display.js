@@ -13,13 +13,13 @@ function btnConvertDate_click() {
     var date = new Date(document.getElementById('txt-date-to-convert').value);
 
     date = new Date(
-    date.getUTCFullYear(),
-    date.getUTCMonth(),
-    date.getUTCDate(),
-    date.getUTCHours(),
-    date.getUTCMinutes(),
-    date.getUTCSeconds(),
-    date.getUTCMilliseconds());
+        date.getUTCFullYear(),
+        date.getUTCMonth(),
+        date.getUTCDate(),
+        date.getUTCHours(),
+        date.getUTCMinutes(),
+        date.getUTCSeconds(),
+        date.getUTCMilliseconds());
     selectedDate = new Date(date.toString());
     var dateYear = selectedDate.getFullYear();
     if(dateYear != calendar.Year) {
