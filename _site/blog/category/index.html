@@ -136,7 +136,6 @@
 <script type="text/javascript">
   
   $(document).ready(function(){
-    document.getElementById('search-input').value = getUrlVars();
 
     var template = '<div class="post-preview"><h2 class="post-preview-title"><a href="{url}">{title}</a></h2></div>';
 
@@ -144,8 +143,10 @@
       searchInput: document.getElementById('search-input'),
       resultsContainer: document.getElementById('post-preview-container'),
       json: 'https://www.minewyrtruman.com/search.json',
-      searchResultTemplate: '<div class="post-preview"><h2 class="post-preview-title"><a href="{url}">{title}</a></h2></div>'     
+      searchResultTemplate: template  
     });
+
+    document.getElementById('search-input').value = getUrlVars();
 
   });
   
