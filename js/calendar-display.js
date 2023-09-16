@@ -13,7 +13,7 @@ function btnConvertDate_click() {
     var selectedDate = new Date($('#txt-date-to-convert').val());
     var dateYear = selectedDate.getFullYear();
     if(dateYear != calendar.Year) {
-        getCalendar(dateYear)
+        getCalendar(dateYear);
     }
     var date = calendar.ConvertDate(selectedDate);      
     $('#converted-date').html(date);
