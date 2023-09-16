@@ -147,7 +147,10 @@
     });
 
     document.getElementById('search-input').value = getUrlVars();
-    document.getElementById('search-input').fireEvent('onchange');
+
+    var event = document.createEvent('HTMLEvents');
+    event.initEvent('change', false, true); // onchange event
+    document.getElementById('search-input').dispatchEvent(event);
 
   });
   
