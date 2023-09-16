@@ -56,20 +56,21 @@
       <p class="subtitle">{{ site.byline }}</p>
     <nav>
       <div class="nav-list">
-          {% for item in site.header_pages %}
-          <div class="nav-item">
-            {% if item.url %}
-            <a href="{{ item.url }}">{{ item.title }}</a>
-            {% else %}
-            <a>{{ item.title }}</a>
-            <div class="dropdown">
-              {% for sub in item.subpages %}             
-                <a href="{{ sub.url }}">{{ sub.title }}</a>
-              {% endfor %}
-            </div>
-            {% endif %}
-          </div>            
-            {% endfor %}
+          <div class="menu-button"><a>Menu</a></div>
+            {% for item in site.header_pages %}
+            <div class="nav-item">
+              {% if item.url %}
+              <a href="{{ item.url }}">{{ item.title }}</a>
+              {% else %}
+              <a>{{ item.title }}</a>
+              <div class="dropdown">
+                {% for sub in item.subpages %}             
+                  <a href="{{ sub.url }}">{{ sub.title }}</a>
+                {% endfor %}
+              </div>
+              {% endif %}
+            </div>            
+              {% endfor %}  
       </div>
     </nav>
     </div>

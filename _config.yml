@@ -52,7 +52,7 @@ defaults:
 header_pages:
   - title: Home
     url: /
-  - title: Mine Wyrtrum Blog
+  - title: Blog
     url: /blog
   - title: Fyrnsidu Newcomer Resources
     subpages:

@@ -73,6 +73,36 @@ body {
   display: block;
 }
 
+.menu-button {
+  display: none;
+}
+
+@media screen and (max-width: 800px) {
+
+  .nav-item {
+    display: none;
+  }
+
+  .menu-button {
+    display: block;
+    padding: 10px 25px 10px 25px;   
+    width: 100%; 
+  }
+
+  .nav-list:hover .nav-item {
+    display: block;    
+    padding: 10px 25px 10px 25px;   
+    width: 100%; 
+  }
+
+  .nav-item:hover .dropdown {
+    display: block;
+    width: 100%;
+    position: relative;
+    padding: 10px 25px 10px 25px;  
+  }
+}
+
 #search-input {
   float: right;
   text-align: left;
