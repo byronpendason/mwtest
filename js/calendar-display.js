@@ -7,6 +7,7 @@ function getCalendar(year) {
     calendar.Load(year);
     buildTables();
     $('#lbl-intercalary-year').html(calendar.IsLeapYear ? "Intercalary Year" : "Regular Year");
+    $('#lbl-metonic-year').html(calendar.MetonicYear);
 }
 
 function btnConvertDate_click() {
