@@ -152,7 +152,7 @@
                         var postMetadata = $('<span>').html("Posted by " + post.author + "on " + post.date + "in");
                         var categories = post.category.split(",");
                         categories.forEach(c => {
-                            postMetadata.append('<a>').html(c).attr("href", "category?" + c);
+                            postMetadata.append($('<a>').html(c).attr("href", "category?" + c));
                         });
                         
                         postPreview.append($("<h2>").append($('<a>').html(post.title).attr("href", post.url)));
