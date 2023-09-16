@@ -85,13 +85,14 @@ body {
 
   .menu-button {
     display: block;
-    padding: 10px 25px 10px 25px;   
+    padding: 10px 0px;   
     width: 100%; 
+    text-align: center;
   }
 
   .nav-list:hover .nav-item {
     display: block;    
-    padding: 10px 25px 10px 25px;   
+    padding: 10px 0px;   
     width: 100%; 
   }
 
@@ -99,8 +100,12 @@ body {
     display: block;
     width: 100%;
     position: relative;
-    padding: 10px 25px 10px 25px;  
+    padding: 10px 0px;  
+    margin-top:5px;
+    border-top:solid 1px #C8B5A2;
+    border-bottom:solid 1px #C8B5A2;
   }
+
 }
 
 #search-input {
@@ -348,7 +353,7 @@ label {
 
 .page-item {
   display: inline-block;
-  min-width: 100px;
+  min-width: 50px;
 }
 
 .page-item a {
@@ -362,6 +367,25 @@ label {
 
 .page-num {
   min-width: 50%;
+}
+
+@media screen and (max-width: 800px) {
+  .sidebar {
+    width: 100%;
+    float: left;
+  }
+
+  .sidebar input {
+    width: 100%;
+  }
+
+  #post-preview-container {
+    width: 100%;
+  }
+
+  .pop-up-results {
+    width: 100%;
+  }
 }
 
 .left { text-align: left; }
