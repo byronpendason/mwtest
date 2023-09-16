@@ -144,13 +144,18 @@
         }).then(results => {
             return results.json();
         }).then(function(posts) {
+            var postPreviews = new Array();
             posts.forEach(post => {
                 if(post.description !== undefined) {
-                    if(post.description.includes(searchTerm)) {
-                        $('#post-preview-container').append(post.title);
+                    if(post.category.includes(searchTerm)) {
+                        var postPreview = $('<div class="post-preview">');
+                        postPreview.append($("<h2>").html(post.title));
+                        postPreview.append($('<p>').html(post.excerpt));
+                        postPreviews.push(postPreview);
                     }                    
                 };
             });
+            $('#post-preview-container').append(postPreviews);
         });
   });
   
