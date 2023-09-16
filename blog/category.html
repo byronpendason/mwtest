@@ -19,9 +19,11 @@ title: Category Search
             return results.json();
         }).then(function(posts) {
             posts.foreach(post => {
-                if(post.description.contains(searchTerm)) {
-                    $('#post-preview-container').append(post.title);
-                }
+                if(post.description !== undefined) {
+                    if(post.description.contains(searchTerm)) {
+                        $('#post-preview-container').append(post.title);
+                    }                    
+                };
             });
         });
   });
