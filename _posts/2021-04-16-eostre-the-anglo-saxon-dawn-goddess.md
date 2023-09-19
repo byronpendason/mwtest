@@ -5,6 +5,7 @@ date: 2021-04-16 15:34
 author: Byron Pendason
 comments: true
 categories: [heathen worldview, heathen worship, Heathenry, reconstruction]
+synonym-tags: [Hrethe, Hretha, Hreðe]
 ---
 <!-- wp:paragraph -->
 <p>According to my reconstructed Anglo-Saxon Calendar, the fourth month, <em>Ēosturmōnaþ</em>, began last Tuesday (April 13, 2021). Bede tells us it was named after the goddess Ēostre. Like Hreðe, the only thing we know about Ēostre from attested sources is her name and the month she was worshipped in (roughly corresponding to the month of April), and again Bede is our source. He tells us in chapter fifteen of <em>The Reckoning of Time:</em></p>

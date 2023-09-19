@@ -5,6 +5,7 @@ date: 2022-07-27
 layout: post
 comments: true
 categories: [heathen basics, heathen worship, Heathenry, reconstruction]
+synonym-tags: [Hrethe, Hretha, Hreðe]
 ---
 
 *Prayer structure*. What is it? As the name implies, it is the structure of prayer. Many religions have a prescribed prayer structure. Christianity has several of the them, two of the most popular forms being A-C-T-S (Adoration, Confession, Thanksgiving, Supplication) and the You-Who-Do-Through format. We do not have any surviving prayers from the pre-Christian Anglo-Saxons, so we can't be certain how they structured their prayers. However, we can make a pretty good guess based upon how other Proto-Indo-Europeans[^7] did it. As [Larhus Fyrnsida](https://larhusfyrnsida.com) notes:

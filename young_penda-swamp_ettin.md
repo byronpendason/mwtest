@@ -4,6 +4,7 @@ author: ByronPendason
 date: 2022-07-14 (last updated 2202-07-16)
 permalink: /young_penda
 comments: true
+synonym-tags: [Hrethe, Hretha, Hreðe]
 sitemap:
   exclude: 'yes'
 ---

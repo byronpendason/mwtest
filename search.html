@@ -1,0 +1,41 @@
+---
+title: Search
+permalink: /search/
+layout: default
+sitemap:
+  exclude: true
+---
+
+<h1 class="page-title"></h1>
+
+<div class="search-page-inputs">
+    <input id="search-page-input" type="text" /><button id="btn-search">Search</button>
+</div>
+
+<div id="search-result-container"></div>
+
+<script type="text/javascript" src="{{ site.baseurl }}/js/better-search-script.js"></script>
+<script type="text/javascript">
+
+    $(document).ready(function(){
+        var search = Search("{{ site.baseurl }}/search.json", false);
+        var searchTerm = search.ParseQueryString(); // since I can't slugify this will have to do
+
+        if(searchTerm.length > 0) {
+            $('.page-title').html("Search for \"" + searchTerm + "\"");
+            results = search.Search(searchTerm, $("#search-result-container"));
+        } else {
+            $('.page-title').html("Search");
+        }
+
+        $('#btn-search').click(btn_search_click)
+    });
+
+    function btn_search_click() {
+        var searchTerm = $('#search-page-input').val();
+        if(searchTerm.length > 0) {
+            location.assign("{{ site.baseurl }}/search?" + searchTerm); 
+        }
+    }
+
+</script>

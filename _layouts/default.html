@@ -74,13 +74,13 @@
               {% endif %}
             </div>            
               {% endfor %}  
+            <div class="nav-item">
+              <a id="btn-nav-search">&#x1F50D;</a>
+            </div>
       </div>
     </nav>
     </div>
     <div id="content">
- <!--     <input type="text" id="search-input" placeholder="&#x2315;">
-      <ul id="results-container"></ul> -->
-
       {% if page.layout == "post" %}
       <h1 class="page-title">{{ page.title }}</h1>
       <span class="post-details">Posted 
@@ -133,6 +133,47 @@
     <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
     {% endif %}
     </div>
+    <div id="search-mask">
+      <div class="nav-search-container">
+        <input type="text" id="nav-search-input" placeholder="Search..." />
+        <a id="btn-search-mask">&#x1F50D;</a>       
+        <div id="nav-search-results"></div>
+      </div>
+    </div>
+    <script type="text/javascript">
+      $(document).ready(function() {
+        $('#btn-nav-search').click(function(){
+            $('#search-mask').addClass("nav-search-visible");
+        });
+
+        $(document).click(function(e) {
+          if($("#search-mask").hasClass("nav-search-visible")) {
+            if(!$("#nav-search-input").is(e.target) && !$("#btn-nav-search").is(e.target)){
+              $('#search-mask').removeClass("nav-search-visible");
+            }
+          }
+        });
+
+        $(document).keydown(function(e) {
+          if(e.keyCode == 27) {
+            $("#search-mask").removeClass("nav-search-visible");
+          }
+          if(e.key === "Enter" && $('#search-mask').hasClass("nav-search-visible")) {
+            event.preventDefault();
+            goToSearch();
+          }
+        });
+
+        $("#btn-search-mask").click(function() {
+          goToSearch();
+        });
+
+        function goToSearch() {
+          var searchTerm = $('#nav-search-input').val();
+          location.assign("{{ site.baseurl }}/search?" + searchTerm);
+        }
+      });
+    </script>
     <div id="footer">
       <p>&copy;<span id="copy-year"></span> by Byron Pendason.<p>
       <p>All information is provided as is, so please double check all information you find on this site. This page may contain affiliate links.</p>
@@ -147,12 +188,12 @@
     <script src="{{ site.baseurl }}/js/search-script.js" type="text/javascript"></script>
     <!-- Configuration -->
     <script>
-    SimpleJekyllSearch({
+    /*SimpleJekyllSearch({
       searchInput: document.getElementById('search-input'),
       resultsContainer: document.getElementById('results-container'),
       json: '{{ site.baseurl }}/search.json',
       searchResultTemplate: '<li><a href="{url}">{title}</a><br></li>'
-    })
+    })*/
     </script>
     {% endunless %}
 {% unless page.title == "Test Page" %}{% include commerce-ads.html %}{% endunless %}

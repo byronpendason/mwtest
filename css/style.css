@@ -48,6 +48,7 @@ hr {
   font-family: 'Almendra SC', serif;
   font-size: 3em;
   margin-bottom: 0px;
+
 }
 
 .page-subtitle {
@@ -303,6 +304,13 @@ label {
   width: calc(100% - 270px);
 }
 
+#search-result-container {
+  float: left;
+  width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+}
+
 .post-preview-title {
   margin-bottom: 5px;
 }
@@ -321,6 +329,7 @@ label {
 
 .post-category {
   color:#4D0707;
+
 }
 
 .post-preview {
@@ -369,6 +378,7 @@ label {
   z-index: 1;
   position: relative;
   top: 0;
+
 }
 
 #sidebar-categories li {
@@ -512,4 +522,67 @@ label {
 
 #dod-button img {
   width: 300px;
+}
+
+#search-mask {
+  position: absolute;
+  z-index: 5000;
+  width: 100%;
+  height: 100%;
+  background-color:#4D0707;
+  color:#C8B5A2;
+  top: 0;
+  opacity: .99;
+  display: none;
+}
+
+#nav-search-input {
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: solid 1px #C8B5A2;
+  background-color: #4D0707;
+  padding: 10px;
+  color:#C8B5A2;
+  font-size: 1.5em;
+  width: 90%;
+}
+
+.nav-search-visible {
+  display: block !important;
+}
+
+.nav-search-container {
+  width: 60%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 200px;
+}
+
+@media screen and (max-width: 800px) {
+  .nav-search-container {
+    width: 80%;
+  }
+}
+
+.search-page-inputs {
+  width: 95%;
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 20px 0px;
+}
+
+.search-page-inputs input {
+  float: left;
+  width: 90%;
+  margin-right: 5px;
+}
+
+.search-page-inputs button {
+  width: 7%;
+}
+
+#btn-nav-search, #btn-search-mask {
+  cursor: pointer;
 }

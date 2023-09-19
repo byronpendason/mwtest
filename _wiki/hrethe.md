@@ -1,5 +1,6 @@
 ---
 title: Hrethe
+synonym-tags: [Hrethe, Hretha, Hreðe]
 ---
 
 Hrethe (Old English: *Hreðe*, Latin: *Rheda*) is an Anglo-Saxon goddess mentioned by the Venerable Bede in his *On the Reckoning of Time*. The Anglo-Saxon month that corresponds to March was named after her.

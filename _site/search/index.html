@@ -10,24 +10,24 @@
     <link rel="stylesheet" href="/mwtest/css/style.css">
     
     <!-- HTML Meta Tags -->
-    <title> Category Search |  Mine Wyrtruman</title>
+    <title> Search |  Mine Wyrtruman</title>
     <meta name="description" content="Mine Wyrtruman explores the roots of Fyrnsidu in order to discover how to apply them to modern spirituality.">
 
     <!-- Google / Search Engine Tags -->
-    <meta itemprop="name" content=" Category Search |  Mine Wyrtruman">
+    <meta itemprop="name" content=" Search |  Mine Wyrtruman">
     <meta itemprop="description" content="Mine Wyrtruman explores the roots of Fyrnsidu in order to discover how to apply them to modern spirituality.">
     <meta itemprop="image" content="https://byronpendason.github.io/media/penda.jpg">
 
     <!-- Facebook Meta Tags -->
-    <meta property="og:url" content="https://byronpendason.github.io/blog/category/">
+    <meta property="og:url" content="https://byronpendason.github.io/search/">
     <meta property="og:type" content="website">
-    <meta property="og:title" content="Category Search | Mine Wyrtruman">
+    <meta property="og:title" content="Search | Mine Wyrtruman">
     <meta property="og:description" content="Mine Wyrtruman explores the roots of Fyrnsidu in order to discover how to apply them to modern spirituality.">
     <meta property="og:image" content="https://byronpendason.github.io/media/penda.jpg">
 
     <!-- Twitter Meta Tags -->
     <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="Category Search | Mine Wyrtruman">
+    <meta name="twitter:title" content="Search | Mine Wyrtruman">
     <meta name="twitter:description" content="Mine Wyrtruman explores the roots of Fyrnsidu in order to discover how to apply them to modern spirituality.">
     <meta name="twitter:image" content="https://byronpendason.github.io/media/penda.jpg">
 
@@ -135,100 +135,36 @@
 
       <h1 class="page-title"></h1>
 
-<a href="/mwtest/blog" class="back-link">Back to Blog</a>
-
-
-<div class="sidebar">
-    <input type="text" id="search-input" class="search-input" placeholder="Search...">
-    <ul id="results-container" class="pop-up-results"></ul>
-
-    <h2>Categories</h2>
-    <ul id="sidebar-categories">
-        
-            
-            <li><a href="/mwtest/blog/category?heathen basics">Heathen basics (18)</a></li>
-        
-            
-            <li><a href="/mwtest/blog/category?heathen worldview">Heathen worldview (29)</a></li>
-        
-            
-            <li><a href="/mwtest/blog/category?heathen worship">Heathen worship (22)</a></li>
-        
-            
-            <li><a href="/mwtest/blog/category?afterlife">Afterlife (3)</a></li>
-        
-            
-            <li><a href="/mwtest/blog/category?politics">Politics (5)</a></li>
-        
-            
-            <li><a href="/mwtest/blog/category?Heathenry">Heathenry (41)</a></li>
-        
-            
-            <li><a href="/mwtest/blog/category?reconstruction">Reconstruction (32)</a></li>
-        
-            
-            <li><a href="/mwtest/blog/category?anglo-saxon calendar">Anglo-saxon calendar (7)</a></li>
-        
-            
-            <li><a href="/mwtest/blog/category?updates">Updates (15)</a></li>
-        
-            
-            <li><a href="/mwtest/blog/category?runes">Runes (8)</a></li>
-        
-            
-            <li><a href="/mwtest/blog/category?lgbt">Lgbt (1)</a></li>
-        
-            
-            <li><a href="/mwtest/blog/category?myths">Myths (6)</a></li>
-        
-            
-            <li><a href="/mwtest/blog/category?cosmology">Cosmology (8)</a></li>
-        
-            
-            <li><a href="/mwtest/blog/category?tech">Tech (3)</a></li>
-        
-            
-            <li><a href="/mwtest/blog/category?rants">Rants (2)</a></li>
-        
-            
-            <li><a href="/mwtest/blog/category?philosophical musings">Philosophical musings (5)</a></li>
-        
-            
-            <li><a href="/mwtest/blog/category?stoicism">Stoicism (4)</a></li>
-        
-    </ul>
+<div class="search-page-inputs">
+    <input id="search-page-input" type="text" /><button id="btn-search">Search</button>
 </div>
 
-<!--
-<script type="text/javascript" src="/js/blog-sidebar.js"></script>
-<script>
-    var posts = new Array();
-
-    
-
-
-    var sidebar = new Sidebar(posts);
-    var listItems = new Array();
-
-    sidebar.Categories.forEach((cat) => {
-        var li = $('<li>').html(cat.Name + "&nbsp;(" + cat.Count +")");
-        listItems.push(li);
-    }); 
-
-    $('#sidebar-categories').append(listItems);
-</script> -->
-<div id="post-preview-container"></div>
+<div id="search-result-container"></div>
 
 <script type="text/javascript" src="/mwtest/js/better-search-script.js"></script>
 <script type="text/javascript">
 
     $(document).ready(function(){
-        var search = Search("/mwtest/search.json", true);
+        var search = Search("/mwtest/search.json", false);
         var searchTerm = search.ParseQueryString(); // since I can't slugify this will have to do
-        $('.page-title').html("Posts in " + searchTerm);
 
-        results = search.Search(searchTerm, $("#post-preview-container"));
+        if(searchTerm.length > 0) {
+            $('.page-title').html("Search for \"" + searchTerm + "\"");
+            results = search.Search(searchTerm, $("#search-result-container"));
+        } else {
+            $('.page-title').html("Search");
+        }
+
+        $('#btn-search').click(btn_search_click)
     });
+
+    function btn_search_click() {
+        var searchTerm = $('#search-page-input').val();
+        if(searchTerm.length > 0) {
+            location.assign("/mwtest/search?" + searchTerm); 
+        }
+    }
+
 </script>
 
       

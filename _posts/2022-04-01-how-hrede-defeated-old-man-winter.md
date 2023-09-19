@@ -5,6 +5,7 @@ date: 2022-04-01 16:23
 author: Byron Pendason
 comments: true
 categories: [heathen worldview, Heathenry, myths, reconstruction]
+synonym-tags: [Hrethe, Hretha, Hreðe]
 ---
 <!-- wp:paragraph -->
 <p><em>The following is an original myth written by myself with suggestions and help from various Fyrnsideras (Anglo-Saxon Heathens). While it is based on elements from Anglo-Saxon mythology (as I understand it), and incorporates elements from folklore, it is not based upon any surviving Anglo-Saxon myth, as few Anglo-Saxon myths survived the Christian purge of ancient Anglo-Saxon Heathenry</em>.</p>

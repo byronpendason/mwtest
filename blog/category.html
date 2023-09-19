@@ -10,59 +10,14 @@ title: Category Search
 {% include blog-sidebar.html %}
 <div id="post-preview-container"></div>
 
+<script type="text/javascript" src="{{ site.baseurl }}/js/better-search-script.js"></script>
 <script type="text/javascript">
-  
-  $(document).ready(function(){
 
-    var template = '<div class="post-preview"><h2 class="post-preview-title"><a href="{url}">{title}</a></h2></div>';
-    var searchTerm = getUrlVars()[0].replace("%20", " "); // since I can't slugify this will have to do
-    $('.page-title').html("Posts in " + searchTerm);
+    $(document).ready(function(){
+        var search = Search("{{ site.baseurl }}/search.json", true);
+        var searchTerm = search.ParseQueryString(); // since I can't slugify this will have to do
+        $('.page-title').html("Posts in " + searchTerm);
 
-    fetch("{{ site.baseurl }}/search.json", {
-            mode: "same-origin", // no-cors, *cors, same-origin
-            cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-            credentials: "same-origin"
-        }).then(results => {
-            return results.json();
-        }).then(function(posts) {
-            var postPreviews = new Array();
-            posts.forEach(post => {
-                if(post.category !== undefined) {
-                    var lowercase = post.category.toLowerCase(); // to lower case to normalize the search
-                    if(lowercase.includes(searchTerm)) {
-                        var postPreview = $('<div class="post-preview">');
-                        var date = new Date(post.date);
-                        var postMetadata = $('<span class="post-details">').html("Posted by " + post.author + "on " + date.toDateString() + " CE in");
-                        var categories = post.category.split(",");
-                        categories.forEach(c => {
-                            var catTrimmed = c.trim();
-                            var catName = catTrimmed.charAt(0).toUpperCase() + catTrimmed.slice(1);
-                            postMetadata.append("&nbsp;");
-                            postMetadata.append($('<a>').html(catName).attr("href", "?" + catTrimmed));
-                        });
-                        
-                        postPreview.append($('<h2 class="post-preview-title">').append($('<a>').html(post.title).attr("href", post.url)));
-                        postPreview.append(postMetadata);
-                        postPreview.append($('<p>').html(post.excerpt.replace("&amp;#8617", "&#8617"))); // This replace is stupid, but the only way I could get around it
-                        postPreviews.push(postPreview);
-                    }
-                }
-            });
-
-            $('#post-preview-container').append(postPreviews);
-        });
-  });
-  
-    function getUrlVars()
-    {
-        var vars = [], hash;
-        var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
-        for(var i = 0; i < hashes.length; i++)
-        {
-            hash = hashes[i].split('=');
-            vars.push(hash[0]);
-            vars[hash[0]] = hash[1];
-        }
-        return vars;
-    }
+        results = search.Search(searchTerm, $("#post-preview-container"));
+    });
 </script>

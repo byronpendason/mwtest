@@ -5,6 +5,7 @@ date: 2021-12-18 19:07
 author: Byron Pendason
 comments: true
 categories: [heathen basics, heathen worldview, heathen worship, Heathenry, reconstruction]
+synonym-tags: [Hrethe, Hretha, Hreðe]
 ---
 <!-- wp:paragraph -->
 <p>Modraniht is one of the holiest tides of the year for Anglo-Saxon Heathenry. All the information we have on its ancient observance is from the Venerable Bede in Chapter 15 of his <em>The Reckoning of Time</em>.</p>
