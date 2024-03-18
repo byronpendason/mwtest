@@ -1,6 +1,8 @@
 function btnGetCalendar_click() {
     var selectedYear = parseInt($('#txt-input-year').val());
     getCalendar(selectedYear);
+    $('#converted-date').html('');
+    $('#txt-date-to-convert[type=date]').val('');
 }
 
 function getCalendar(year) {
@@ -30,6 +32,7 @@ function btnConvertDate_click() {
     }
     var asDate = calendar.ConvertDate(selectedDate);      
     $('#converted-date').html(asDate);
+    $('#txt-input-year').val('');
 }
 
 function buildTables() {
