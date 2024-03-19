@@ -8,6 +8,7 @@ categories: [anglo-saxon calendar, heathen worship, reconstruction]
 ---
 {% include calendar-display-v2.html %}
 
+<div id="calendar-info" markdown="1">
 ## Instructions
 
 Enter a Common Era year to see the reconstructed calendar dates -OR- enter a specific date, and it will be converted to the Anglo-Saxon date. 
@@ -80,3 +81,5 @@ So how do I take all this information and use it to form a reconstructed Anglo-S
     > Note well that those who say that the month ought to be defined, or was defined by the ancients, as the length of time in which the Moon traverses the zodiacal circle, make a serious mistake. As more painstaking inspection of nature has taught, the Moon plainly completes the zodiac in 27 days and 8 hours, but its proper course is 29 days and 12 hours,setting aside the calculation of the ‘‘leap of the Moon’’. Therefore it is more accurate to define a lunar month as the circuit and reintegration of the lunar light from new Moon to new Moon.
     
     "Lunar light" from a new moon makes no sense if he meant the dark moon like we do today. The new moon for the ancients was when you could see the first sliver of the moon after the dark moon.
+
+</div>
