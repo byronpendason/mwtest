@@ -1,4 +1,5 @@
 function showMonth(date) {
+	showTab("month");
 	let monthName = document.getElementById("monthName");
 	let monthTable = document.getElementById("monthTable");
 	let months = [...calendar.Months];
