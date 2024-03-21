@@ -56,6 +56,13 @@ function Calendar(years) {
 			if (this.Year > 1700 && this.Year < 2100) {
 				m.NewMoon = new Date(selectedYear.NewMoons[i]);
 				m.FullMoon = new Date(selectedYear.FullMoons[i]);
+				
+				if (!selectedYear.NewMoons[i+1]) {
+					m.DarkMoon = this.LastDay;
+				} else {
+					m.DarkMoon = new Date(selectedYear.NewMoons[i+1]);
+					m.DarkMoon.setDate(m.DarkMoon.getDate() - 1);
+				}
 				i += 1;
 			} else {
 				m.NewMoon = nextNewMoon(date);
@@ -95,6 +102,7 @@ function Calendar(years) {
 		this.Name = name;
 		this.FullMoon = '';
 		this.NewMoon = '';
+		this.DarkMoon = "";
 
 		return this;
 	}
@@ -254,7 +262,7 @@ function Calendar(years) {
 	}
 
 	function dateIsBetween(date, rangeStart, rangeEnd) {
-		return date >= rangeStart && date < rangeEnd;
+		return date >= rangeStart && date <= rangeEnd;
 	}
 
 	function getOrdinal(n) {
